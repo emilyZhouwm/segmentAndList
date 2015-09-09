@@ -60,13 +60,13 @@
 
 @end
 
-@interface OPDropDownLeftCell : UITableViewCell
+@interface WMDropDownLeftCell : UITableViewCell
 
 + (CGFloat)cellHeight;
 
 @end
 
-@implementation OPDropDownLeftCell
+@implementation WMDropDownLeftCell
 
 + (CGFloat)cellHeight
 {
@@ -99,13 +99,13 @@
 
 @end
 
-@interface OPDropDownRightCell : UITableViewCell
+@interface WMDropDownRightCell : UITableViewCell
 
 + (CGFloat)cellHeight;
 
 @end
 
-@implementation OPDropDownRightCell
+@implementation WMDropDownRightCell
 
 + (CGFloat)cellHeight
 {
@@ -209,7 +209,7 @@
         
         _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width / 3, sH)];
         [_baseView addSubview:_leftTableView];
-        [_leftTableView registerClass:[OPDropDownLeftCell class] forCellReuseIdentifier:@"OPDropDownLeftCell"];
+        [_leftTableView registerClass:[WMDropDownLeftCell class] forCellReuseIdentifier:@"WMDropDownLeftCell"];
         _leftTableView.bounces = FALSE;
         _leftTableView.delegate = self;
         _leftTableView.dataSource = self;
@@ -218,7 +218,7 @@
         
         _rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(kScreen_Width / 3, 0, kScreen_Width, sH)];
         [_baseView addSubview:_rightTableView];
-        [_rightTableView registerClass:[OPDropDownRightCell class] forCellReuseIdentifier:@"OPDropDownRightCell"];
+        [_rightTableView registerClass:[WMDropDownRightCell class] forCellReuseIdentifier:@"WMDropDownRightCell"];
         _rightTableView.bounces = FALSE;
         _rightTableView.delegate = self;
         _rightTableView.dataSource = self;
@@ -315,13 +315,13 @@
         dropCell.tag = indexPath.row + 1000;
         cell = dropCell;
     } else if (tableView == _leftTableView) {
-        OPDropDownLeftCell *leftCell = [tableView dequeueReusableCellWithIdentifier:@"OPDropDownLeftCell"];
+        WMDropDownLeftCell *leftCell = [tableView dequeueReusableCellWithIdentifier:@"WMDropDownLeftCell"];
         leftCell.textLabel.text = [_titles[indexPath.row] objectForKey:@"left"];
         leftCell.textLabel.textColor = (_index == indexPath.row ? kGreenColor : kTextColor);
         leftCell.tag = indexPath.row + 1000;
         cell = leftCell;
     } else if (tableView == _rightTableView) {
-        OPDropDownRightCell *rightCell = [tableView dequeueReusableCellWithIdentifier:@"OPDropDownRightCell"];
+        WMDropDownRightCell *rightCell = [tableView dequeueReusableCellWithIdentifier:@"WMDropDownRightCell"];
         if (_index >= 0 && _index < _titles.count) {
             NSArray *ary = [_titles[_index] objectForKey:@"right"];
             rightCell.textLabel.text = ary[indexPath.row];
@@ -340,9 +340,9 @@
     if (tableView == _tableView) {
         return [WMDropDown2Cell cellHeight];
     } else if (tableView == _leftTableView) {
-        return [OPDropDownLeftCell cellHeight];
+        return [WMDropDownLeftCell cellHeight];
     } else if (tableView == _rightTableView) {
-        return [OPDropDownRightCell cellHeight];
+        return [WMDropDownRightCell cellHeight];
     }
     return 0;
 }
@@ -365,7 +365,7 @@
         [self hideView];
     } else if (tableView == _leftTableView) {
         NSArray *cells = [tableView visibleCells];
-        for (OPDropDownLeftCell *cell in cells) {
+        for (WMDropDownLeftCell *cell in cells) {
             cell.textLabel.textColor = ((cell.tag == (indexPath.row + 1000)) ? kGreenColor : kTextColor);
         }
         if (_index != indexPath.row) {
