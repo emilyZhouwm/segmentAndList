@@ -13,10 +13,12 @@
 #define kScreen_Width [UIScreen mainScreen].bounds.size.width
 
 @interface SecondViewController () <UIScrollViewDelegate>
+
 @property (weak, nonatomic) IBOutlet WMSegmentControl *segmentControl;
 @property (weak, nonatomic) IBOutlet WMIconSegmentControl *iconSegmentControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scroll1;
 @property (weak, nonatomic) IBOutlet UIScrollView *scroll2;
+@property (assign, nonatomic) BOOL isNot;
 
 @end
 
@@ -59,22 +61,26 @@
 
 - (void)scrollIndex:(NSInteger)index
 {
+    _isNot = TRUE;
     [_scroll1 setContentOffset:CGPointMake(_scroll1.frame.size.width * index, 0) animated:YES];
 }
 
 - (void)scrollIndex2:(NSInteger)index
 {
+    _isNot = TRUE;
     [_scroll2 setContentOffset:CGPointMake(_scroll2.frame.size.width * index, 0) animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat index = scrollView.contentOffset.x / scrollView.frame.size.width;
-    if (scrollView == _scroll1) {
-        [_segmentControl moveIndexWithProgress:index];
-    } else if (scrollView == _scroll2) {
-        [_iconSegmentControl moveIndexWithProgress:index];
+    if (!_isNot) {
+        CGFloat index = scrollView.contentOffset.x / scrollView.frame.size.width;
+        if (scrollView == _scroll1) {
+            [_segmentControl moveIndexWithProgress:index];
+        } else if (scrollView == _scroll2) {
+            [_iconSegmentControl moveIndexWithProgress:index];
+        }
     }
 }
 
@@ -86,6 +92,11 @@
     } else if (scrollView == _scroll2) {
         [_iconSegmentControl selectIndex:index];
     }
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    _isNot = FALSE;
 }
 
 @end
