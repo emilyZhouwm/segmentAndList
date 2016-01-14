@@ -7,17 +7,11 @@
 
 #import "WMSegmentControl.h"
 
-#define kScreen_Width [UIScreen mainScreen].bounds.size.width
-
-#define kHspace (0)
-#define kLineHeight (2)
-#define kAnimationTime (0.3)
-#define kHorizontalLineH (1)
-#define kVerticalLineSpace (5)
 
 @interface WMSegmentControlItem : UIView
 
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIView *lineView;
 
 - (void)setSelected:(BOOL)selected;
 - (void)resetTitle:(NSString *)title;
@@ -31,7 +25,7 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
         _titleLabel = ({
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kHspace, 0, CGRectGetWidth(self.bounds) - 2 * kHspace, CGRectGetHeight(self.bounds))];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kGroundSpace, 0, CGRectGetWidth(self.bounds) - 2 * kGroundSpace, CGRectGetHeight(self.bounds))];
             label.font = [UIFont systemFontOfSize:kTextFont];
             label.textAlignment = NSTextAlignmentCenter;
             label.text = title;
@@ -41,13 +35,17 @@
         });
         
         [self addSubview:_titleLabel];
+        
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(frame.origin.x, kLineSpace, kLineW, CGRectGetHeight(self.bounds) - kLineSpace * 2)];
+        _lineView.backgroundColor = kLineColor;
+        //[self addSubview:_lineView];
     }
     return self;
 }
 
 - (void)setSelected:(BOOL)selected
 {
-    [_titleLabel setTextColor:(selected ? kLineColor : kTextColor)];
+    [_titleLabel setTextColor:(selected ? kTextSColor : kTextColor)];
 }
 
 - (void)resetTitle:(NSString *)title
@@ -60,12 +58,16 @@
 @interface WMSegmentControl () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *contentView;
-@property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) UIView *groundView;
+@property (nonatomic, strong) UIView *upLineView;
 @property (nonatomic, strong) UIView *bottomLineView;
 @property (nonatomic, strong) NSMutableArray *itemFrames;
 @property (nonatomic, strong) NSMutableArray *itemViews;
 
 @property (nonatomic, copy) WMSegmentControlBlock block;
+
+@property (nonatomic, assign) float groundH;
+@property (nonatomic, assign) float groundY;
 
 @end
 
@@ -76,7 +78,17 @@
     if (_contentView) {
         _contentView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
         _contentView.frame = self.bounds;
-        _bottomLineView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - kHorizontalLineH, CGRectGetWidth(self.bounds), kHorizontalLineH);
+        
+        _bottomLineView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - kBottomLineH, CGRectGetWidth(self.bounds), kBottomLineH);
+        _upLineView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), kUpLineH);
+        
+        _groundY = 0;
+        _groundH = kGroundHeight;
+        if (_groundH > 0.0f) {
+            _groundY = CGRectGetHeight(self.bounds) - _groundH - kBottomLineH;
+        } else {
+            _groundH = self.bounds.size.height;
+        }
     }
 }
 
@@ -93,14 +105,27 @@
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doTap:)];
         [_contentView addGestureRecognizer:tapGes];
         [tapGes requireGestureRecognizerToFail:_contentView.panGestureRecognizer];
+
+        _upLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), kUpLineH)];
+        _upLineView.backgroundColor = kLineColor;
+        [self addSubview:_upLineView];
         
-        _lineView = [[UIView alloc] initWithFrame:CGRectZero];
-        _lineView.backgroundColor = kLineColor;
-        [_contentView addSubview:_lineView];
-        
-        _bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) - kHorizontalLineH, CGRectGetWidth(self.bounds), kHorizontalLineH)];
-        _bottomLineView.backgroundColor = kHLineColor;
+        _bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) - kBottomLineH, CGRectGetWidth(self.bounds), kBottomLineH)];
+        _bottomLineView.backgroundColor = kLineColor;
         [self addSubview:_bottomLineView];
+        
+        _groundView = [[UIView alloc] initWithFrame:CGRectZero];
+        _groundView.backgroundColor = kGroundColor;
+        [_contentView addSubview:_groundView];
+        //_groundView.layer.zPosition = -1;
+        
+        _groundY = 0;
+        _groundH = kGroundHeight;
+        if (_groundH > 0.0f) {
+            _groundY = CGRectGetHeight(self.bounds) - _groundH - kBottomLineH;
+        } else {
+            _groundH = CGRectGetHeight(self.bounds);
+        }
     }
 }
 
@@ -124,9 +149,11 @@
     float y = 0;
     float height = CGRectGetHeight(self.bounds);
     
+    float screenW = [UIScreen mainScreen].bounds.size.width;
+
     for (int i = 0; i < titleArray.count; i++) {
         float x = i > 0 ? CGRectGetMaxX([_itemFrames[i-1] CGRectValue]) : 0;
-        float width = kScreen_Width / titleArray.count;
+        float width = screenW / titleArray.count;
         CGRect rect = CGRectMake(x, y, width, height);
         [_itemFrames addObject:[NSValue valueWithCGRect:rect]];
         
@@ -134,11 +161,13 @@
         WMSegmentControlItem *item = [[WMSegmentControlItem alloc] initWithFrame:rect title:title];
         if (i == 0) {
             [item setSelected:YES];
-            CGRect lineRect = CGRectMake(CGRectGetMinX(rect) + kHspace, CGRectGetHeight(rect) - kLineHeight - kHorizontalLineH, CGRectGetWidth(rect) - 2 * kHspace, kLineHeight);
-            _lineView.frame = lineRect;
+            CGRect tempRect = CGRectMake(CGRectGetMinX(rect) + kGroundSpace, _groundY, CGRectGetWidth(rect) - 2 * kGroundSpace, _groundH);
+            _groundView.frame = tempRect;
         }
         [_itemViews addObject:item];
         [_contentView addSubview:item];
+        [_contentView insertSubview:item.lineView belowSubview:_groundView];
+        item.lineView.hidden = i > 0 ? FALSE : TRUE;
     }
     
     [_contentView setContentSize:CGSizeMake(CGRectGetMaxX([[_itemFrames lastObject] CGRectValue]), CGRectGetHeight(self.bounds))];
@@ -164,10 +193,10 @@
     if (index != _currentIndex) {
         WMSegmentControlItem *curItem = [_itemViews objectAtIndex:index];
         CGRect rect = [_itemFrames[index] CGRectValue];
-        CGRect lineRect = CGRectMake(CGRectGetMinX(rect) + kHspace, CGRectGetHeight(rect) - kLineHeight - kHorizontalLineH, CGRectGetWidth(rect) - 2 * kHspace, kLineHeight);
+        CGRect tempRect = CGRectMake(CGRectGetMinX(rect) + kGroundSpace, _groundY, CGRectGetWidth(rect) - 2 * kGroundSpace, _groundH);
 
         [UIView animateWithDuration:kAnimationTime animations:^{
-            _lineView.frame = lineRect;
+            _groundView.frame = tempRect;
         } completion:^(BOOL finished) {
             [_itemViews enumerateObjectsUsingBlock:^(WMSegmentControlItem *item, NSUInteger idx, BOOL *stop) {
                 [item setSelected:NO];
@@ -192,7 +221,7 @@
     
     CGRect origionRect = [_itemFrames[_currentIndex] CGRectValue];;
     
-    CGRect origionLineRect = CGRectMake(CGRectGetMinX(origionRect) + kHspace, CGRectGetHeight(origionRect) - kLineHeight - kHorizontalLineH, CGRectGetWidth(origionRect) - 2 * kHspace, kLineHeight);
+    CGRect origionLineRect = CGRectMake(CGRectGetMinX(origionRect) + kGroundSpace, _groundY, CGRectGetWidth(origionRect) - 2 * kGroundSpace, _groundH);
     
     CGRect rect;
     
@@ -202,7 +231,7 @@
             self.currentIndex += floorf(delta);
             delta -= floorf(delta);
             origionRect = [_itemFrames[_currentIndex] CGRectValue];;
-            origionLineRect = CGRectMake(CGRectGetMinX(origionRect) + kHspace, CGRectGetHeight(origionRect) - kLineHeight - kHorizontalLineH, CGRectGetWidth(origionRect) - 2 * kHspace, kLineHeight);
+            origionLineRect = CGRectMake(CGRectGetMinX(origionRect) + kGroundSpace, _groundY, CGRectGetWidth(origionRect) - 2 * kGroundSpace, _groundH);
         }
         
         if (_currentIndex == _itemFrames.count - 1) {
@@ -211,24 +240,24 @@
         
         rect = [_itemFrames[_currentIndex + 1] CGRectValue];
         
-        CGRect lineRect = CGRectMake(CGRectGetMinX(rect) + kHspace, CGRectGetHeight(rect) - kLineHeight - kHorizontalLineH, CGRectGetWidth(rect) - 2 * kHspace, kLineHeight);
+        CGRect lineRect = CGRectMake(CGRectGetMinX(rect) + kGroundSpace, _groundY, CGRectGetWidth(rect) - 2 * kGroundSpace, _groundH);
         
         CGRect moveRect = CGRectZero;
         
         moveRect.size = CGSizeMake(CGRectGetWidth(origionLineRect) + delta * (CGRectGetWidth(lineRect) - CGRectGetWidth(origionLineRect)), CGRectGetHeight(lineRect));
         moveRect.origin = CGPointMake(CGRectGetMidX(origionLineRect) + delta * (CGRectGetMidX(lineRect) - CGRectGetMidX(origionLineRect)) - CGRectGetMidX(moveRect), CGRectGetMidY(origionLineRect) - CGRectGetMidY(moveRect));
-        _lineView.frame = moveRect;
+        _groundView.frame = moveRect;
     } else if (delta < 0){
         
         if (_currentIndex == 0) {
             return;
         }
         rect = [_itemFrames[_currentIndex - 1] CGRectValue];
-        CGRect lineRect = CGRectMake(CGRectGetMinX(rect) + kHspace, CGRectGetHeight(rect) - kLineHeight - kHorizontalLineH, CGRectGetWidth(rect) - 2 * kHspace, kLineHeight);
+        CGRect tempRect = CGRectMake(CGRectGetMinX(rect) + kGroundSpace, _groundY, CGRectGetWidth(rect) - 2 * kGroundSpace, _groundH);
         CGRect moveRect = CGRectZero;
-        moveRect.size = CGSizeMake(CGRectGetWidth(origionLineRect) - delta * (CGRectGetWidth(lineRect) - CGRectGetWidth(origionLineRect)), CGRectGetHeight(lineRect));
-        moveRect.origin = CGPointMake(CGRectGetMidX(origionLineRect) - delta * (CGRectGetMidX(lineRect) - CGRectGetMidX(origionLineRect)) - CGRectGetMidX(moveRect), CGRectGetMidY(origionLineRect) - CGRectGetMidY(moveRect));
-        _lineView.frame = moveRect;
+        moveRect.size = CGSizeMake(CGRectGetWidth(origionLineRect) - delta * (CGRectGetWidth(tempRect) - CGRectGetWidth(origionLineRect)), CGRectGetHeight(tempRect));
+        moveRect.origin = CGPointMake(CGRectGetMidX(origionLineRect) - delta * (CGRectGetMidX(tempRect) - CGRectGetMidX(origionLineRect)) - CGRectGetMidX(moveRect), CGRectGetMidY(origionLineRect) - CGRectGetMidY(moveRect));
+        _groundView.frame = moveRect;
         if (delta < -1) {
             self.currentIndex -= 1;
         }
