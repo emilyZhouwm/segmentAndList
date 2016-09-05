@@ -15,17 +15,19 @@
 		EB1FC3CD1B144EC600B1483F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB1FC3CC1B144EC600B1483F /* Images.xcassets */; };
 		EB1FC3D01B144EC600B1483F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB1FC3CE1B144EC600B1483F /* LaunchScreen.xib */; };
 		EB1FC3DC1B144EC600B1483F /* segmentAndListDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1FC3DB1B144EC600B1483F /* segmentAndListDemoTests.m */; };
-		EB1FC3EB1B144F4400B1483F /* WMTabControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1FC3E91B144F4400B1483F /* WMTabControl.m */; };
-		EB1FC3EE1B14516F00B1483F /* WMSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1FC3ED1B14516F00B1483F /* WMSegmentControl.m */; };
-		EB1FC3F11B145BF700B1483F /* WMIconSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1FC3F01B145BF700B1483F /* WMIconSegmentControl.m */; };
-		EB1FC3F41B1587B000B1483F /* WMNavTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1FC3F31B1587B000B1483F /* WMNavTabBar.m */; };
 		EB1FC3F71B158EE800B1483F /* ThreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1FC3F61B158EE800B1483F /* ThreeViewController.m */; };
-		EB7094561B1ECBD10064B023 /* WMMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7094551B1ECBD10064B023 /* WMMenuCell.m */; };
-		EB7094591B1ECC040064B023 /* WMPickerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7094581B1ECC040064B023 /* WMPickerControl.m */; };
+		EB5179111D782CE800AAD2B7 /* WMIconSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB51790A1D782CE800AAD2B7 /* WMIconSegmentControl.m */; };
+		EB5179121D782CE800AAD2B7 /* WMMaskSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB51790C1D782CE800AAD2B7 /* WMMaskSegmentControl.m */; };
+		EB5179131D782CE800AAD2B7 /* WMNavTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EB51790E1D782CE800AAD2B7 /* WMNavTabBar.m */; };
+		EB5179141D782CE800AAD2B7 /* WMSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5179101D782CE800AAD2B7 /* WMSegmentControl.m */; };
+		EB5179301D782DB100AAD2B7 /* WMDropDown2View.m in Sources */ = {isa = PBXBuildFile; fileRef = EB51792B1D782DB100AAD2B7 /* WMDropDown2View.m */; };
+		EB5179311D782DB100AAD2B7 /* WMDropDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB51792D1D782DB100AAD2B7 /* WMDropDownView.m */; };
+		EB5179321D782DB100AAD2B7 /* WMTabControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB51792F1D782DB100AAD2B7 /* WMTabControl.m */; };
+		EB51793A1D782DB700AAD2B7 /* WMMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5179351D782DB700AAD2B7 /* WMMenuCell.m */; };
+		EB51793B1D782DB700AAD2B7 /* WMMenuHead.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5179371D782DB700AAD2B7 /* WMMenuHead.m */; };
+		EB51793C1D782DB700AAD2B7 /* WMPickupList.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5179391D782DB700AAD2B7 /* WMPickupList.m */; };
 		EB70945C1B1EDC8D0064B023 /* FourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB70945B1B1EDC8D0064B023 /* FourViewController.m */; };
 		EB70945F1B1EDF5E0064B023 /* WMCustomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB70945E1B1EDF5E0064B023 /* WMCustomMenuCell.m */; };
-		EB7094621B1EE5450064B023 /* WMMenuHead.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7094611B1EE5450064B023 /* WMMenuHead.m */; };
-		EB70946A1B1EE9BF0064B023 /* WMDropDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7094691B1EE9BF0064B023 /* WMDropDownView.m */; };
 		EBB37F481B1FFEE400B0212A /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = EBB37F381B1FFEE400B0212A /* Contents.json */; };
 		EBB37F491B1FFEE400B0212A /* icon_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBB37F391B1FFEE400B0212A /* icon_arrow@2x.png */; };
 		EBB37F4A1B1FFEE400B0212A /* icon_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBB37F3A1B1FFEE400B0212A /* icon_arrow@3x.png */; };
@@ -40,7 +42,6 @@
 		EBB37F531B1FFEE400B0212A /* tag_list_s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBB37F471B1FFEE400B0212A /* tag_list_s@2x.png */; };
 		EBB37F571B1FFF2000B0212A /* FlatDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB37F561B1FFF2000B0212A /* FlatDatePicker.m */; };
 		EBB37F5A1B1FFF2D00B0212A /* WMTestBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB37F591B1FFF2D00B0212A /* WMTestBtn.m */; };
-		EBEB19A11B9ED6450077B029 /* WMDropDown2View.m in Sources */ = {isa = PBXBuildFile; fileRef = EBEB19A01B9ED6450077B029 /* WMDropDown2View.m */; };
 		EBEB19A41B9ED8C90077B029 /* FiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBEB19A31B9ED8C90077B029 /* FiveViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -70,28 +71,32 @@
 		EB1FC3D51B144EC600B1483F /* segmentAndListDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = segmentAndListDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB1FC3DA1B144EC600B1483F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB1FC3DB1B144EC600B1483F /* segmentAndListDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = segmentAndListDemoTests.m; sourceTree = "<group>"; };
-		EB1FC3E81B144F4400B1483F /* WMTabControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMTabControl.h; sourceTree = "<group>"; };
-		EB1FC3E91B144F4400B1483F /* WMTabControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMTabControl.m; sourceTree = "<group>"; };
-		EB1FC3EC1B14516F00B1483F /* WMSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMSegmentControl.h; sourceTree = "<group>"; };
-		EB1FC3ED1B14516F00B1483F /* WMSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMSegmentControl.m; sourceTree = "<group>"; };
-		EB1FC3EF1B145BF700B1483F /* WMIconSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMIconSegmentControl.h; sourceTree = "<group>"; };
-		EB1FC3F01B145BF700B1483F /* WMIconSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMIconSegmentControl.m; sourceTree = "<group>"; };
-		EB1FC3F21B1587B000B1483F /* WMNavTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMNavTabBar.h; sourceTree = "<group>"; };
-		EB1FC3F31B1587B000B1483F /* WMNavTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMNavTabBar.m; sourceTree = "<group>"; };
 		EB1FC3F51B158EE800B1483F /* ThreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeViewController.h; sourceTree = "<group>"; };
 		EB1FC3F61B158EE800B1483F /* ThreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeViewController.m; sourceTree = "<group>"; };
-		EB7094541B1ECBD10064B023 /* WMMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuCell.h; sourceTree = "<group>"; };
-		EB7094551B1ECBD10064B023 /* WMMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuCell.m; sourceTree = "<group>"; };
-		EB7094571B1ECC040064B023 /* WMPickerControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPickerControl.h; sourceTree = "<group>"; };
-		EB7094581B1ECC040064B023 /* WMPickerControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPickerControl.m; sourceTree = "<group>"; };
+		EB5179091D782CE800AAD2B7 /* WMIconSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMIconSegmentControl.h; sourceTree = "<group>"; };
+		EB51790A1D782CE800AAD2B7 /* WMIconSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMIconSegmentControl.m; sourceTree = "<group>"; };
+		EB51790B1D782CE800AAD2B7 /* WMMaskSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMaskSegmentControl.h; sourceTree = "<group>"; };
+		EB51790C1D782CE800AAD2B7 /* WMMaskSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMaskSegmentControl.m; sourceTree = "<group>"; };
+		EB51790D1D782CE800AAD2B7 /* WMNavTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMNavTabBar.h; sourceTree = "<group>"; };
+		EB51790E1D782CE800AAD2B7 /* WMNavTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMNavTabBar.m; sourceTree = "<group>"; };
+		EB51790F1D782CE800AAD2B7 /* WMSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMSegmentControl.h; sourceTree = "<group>"; };
+		EB5179101D782CE800AAD2B7 /* WMSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMSegmentControl.m; sourceTree = "<group>"; };
+		EB51792A1D782DB100AAD2B7 /* WMDropDown2View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDropDown2View.h; sourceTree = "<group>"; };
+		EB51792B1D782DB100AAD2B7 /* WMDropDown2View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDropDown2View.m; sourceTree = "<group>"; };
+		EB51792C1D782DB100AAD2B7 /* WMDropDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDropDownView.h; sourceTree = "<group>"; };
+		EB51792D1D782DB100AAD2B7 /* WMDropDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDropDownView.m; sourceTree = "<group>"; };
+		EB51792E1D782DB100AAD2B7 /* WMTabControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMTabControl.h; sourceTree = "<group>"; };
+		EB51792F1D782DB100AAD2B7 /* WMTabControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMTabControl.m; sourceTree = "<group>"; };
+		EB5179341D782DB700AAD2B7 /* WMMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuCell.h; sourceTree = "<group>"; };
+		EB5179351D782DB700AAD2B7 /* WMMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuCell.m; sourceTree = "<group>"; };
+		EB5179361D782DB700AAD2B7 /* WMMenuHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuHead.h; sourceTree = "<group>"; };
+		EB5179371D782DB700AAD2B7 /* WMMenuHead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuHead.m; sourceTree = "<group>"; };
+		EB5179381D782DB700AAD2B7 /* WMPickupList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPickupList.h; sourceTree = "<group>"; };
+		EB5179391D782DB700AAD2B7 /* WMPickupList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPickupList.m; sourceTree = "<group>"; };
 		EB70945A1B1EDC8D0064B023 /* FourViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourViewController.h; sourceTree = "<group>"; };
 		EB70945B1B1EDC8D0064B023 /* FourViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourViewController.m; sourceTree = "<group>"; };
 		EB70945D1B1EDF5E0064B023 /* WMCustomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMCustomMenuCell.h; sourceTree = "<group>"; };
 		EB70945E1B1EDF5E0064B023 /* WMCustomMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMCustomMenuCell.m; sourceTree = "<group>"; };
-		EB7094601B1EE5450064B023 /* WMMenuHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuHead.h; sourceTree = "<group>"; };
-		EB7094611B1EE5450064B023 /* WMMenuHead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuHead.m; sourceTree = "<group>"; };
-		EB7094681B1EE9BF0064B023 /* WMDropDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDropDownView.h; sourceTree = "<group>"; };
-		EB7094691B1EE9BF0064B023 /* WMDropDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDropDownView.m; sourceTree = "<group>"; };
 		EBB37F381B1FFEE400B0212A /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		EBB37F391B1FFEE400B0212A /* icon_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrow@2x.png"; sourceTree = "<group>"; };
 		EBB37F3A1B1FFEE400B0212A /* icon_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrow@3x.png"; sourceTree = "<group>"; };
@@ -108,8 +113,6 @@
 		EBB37F561B1FFF2000B0212A /* FlatDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlatDatePicker.m; sourceTree = "<group>"; };
 		EBB37F581B1FFF2D00B0212A /* WMTestBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMTestBtn.h; sourceTree = "<group>"; };
 		EBB37F591B1FFF2D00B0212A /* WMTestBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMTestBtn.m; sourceTree = "<group>"; };
-		EBEB199F1B9ED6450077B029 /* WMDropDown2View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDropDown2View.h; sourceTree = "<group>"; };
-		EBEB19A01B9ED6450077B029 /* WMDropDown2View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDropDown2View.m; sourceTree = "<group>"; };
 		EBEB19A21B9ED8C90077B029 /* FiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiveViewController.h; sourceTree = "<group>"; };
 		EBEB19A31B9ED8C90077B029 /* FiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiveViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -208,27 +211,53 @@
 		EB1FC3E51B144F4400B1483F /* segmentListControl */ = {
 			isa = PBXGroup;
 			children = (
+				EB5179331D782DB700AAD2B7 /* BottomList */,
+				EB5179291D782DB100AAD2B7 /* UpList */,
 				EBB37F361B1FFEE400B0212A /* image */,
-				EB7094571B1ECC040064B023 /* WMPickerControl.h */,
-				EB7094581B1ECC040064B023 /* WMPickerControl.m */,
-				EB7094681B1EE9BF0064B023 /* WMDropDownView.h */,
-				EB7094691B1EE9BF0064B023 /* WMDropDownView.m */,
-				EBEB199F1B9ED6450077B029 /* WMDropDown2View.h */,
-				EBEB19A01B9ED6450077B029 /* WMDropDown2View.m */,
-				EB1FC3E81B144F4400B1483F /* WMTabControl.h */,
-				EB1FC3E91B144F4400B1483F /* WMTabControl.m */,
-				EB1FC3EC1B14516F00B1483F /* WMSegmentControl.h */,
-				EB1FC3ED1B14516F00B1483F /* WMSegmentControl.m */,
-				EB1FC3EF1B145BF700B1483F /* WMIconSegmentControl.h */,
-				EB1FC3F01B145BF700B1483F /* WMIconSegmentControl.m */,
-				EB1FC3F21B1587B000B1483F /* WMNavTabBar.h */,
-				EB1FC3F31B1587B000B1483F /* WMNavTabBar.m */,
-				EB7094541B1ECBD10064B023 /* WMMenuCell.h */,
-				EB7094551B1ECBD10064B023 /* WMMenuCell.m */,
-				EB7094601B1EE5450064B023 /* WMMenuHead.h */,
-				EB7094611B1EE5450064B023 /* WMMenuHead.m */,
+				EB5179081D782CE800AAD2B7 /* Segment */,
 			);
 			path = segmentListControl;
+			sourceTree = "<group>";
+		};
+		EB5179081D782CE800AAD2B7 /* Segment */ = {
+			isa = PBXGroup;
+			children = (
+				EB5179091D782CE800AAD2B7 /* WMIconSegmentControl.h */,
+				EB51790A1D782CE800AAD2B7 /* WMIconSegmentControl.m */,
+				EB51790B1D782CE800AAD2B7 /* WMMaskSegmentControl.h */,
+				EB51790C1D782CE800AAD2B7 /* WMMaskSegmentControl.m */,
+				EB51790D1D782CE800AAD2B7 /* WMNavTabBar.h */,
+				EB51790E1D782CE800AAD2B7 /* WMNavTabBar.m */,
+				EB51790F1D782CE800AAD2B7 /* WMSegmentControl.h */,
+				EB5179101D782CE800AAD2B7 /* WMSegmentControl.m */,
+			);
+			path = Segment;
+			sourceTree = "<group>";
+		};
+		EB5179291D782DB100AAD2B7 /* UpList */ = {
+			isa = PBXGroup;
+			children = (
+				EB51792E1D782DB100AAD2B7 /* WMTabControl.h */,
+				EB51792F1D782DB100AAD2B7 /* WMTabControl.m */,
+				EB51792A1D782DB100AAD2B7 /* WMDropDown2View.h */,
+				EB51792B1D782DB100AAD2B7 /* WMDropDown2View.m */,
+				EB51792C1D782DB100AAD2B7 /* WMDropDownView.h */,
+				EB51792D1D782DB100AAD2B7 /* WMDropDownView.m */,
+			);
+			path = UpList;
+			sourceTree = "<group>";
+		};
+		EB5179331D782DB700AAD2B7 /* BottomList */ = {
+			isa = PBXGroup;
+			children = (
+				EB5179341D782DB700AAD2B7 /* WMMenuCell.h */,
+				EB5179351D782DB700AAD2B7 /* WMMenuCell.m */,
+				EB5179361D782DB700AAD2B7 /* WMMenuHead.h */,
+				EB5179371D782DB700AAD2B7 /* WMMenuHead.m */,
+				EB5179381D782DB700AAD2B7 /* WMPickupList.h */,
+				EB5179391D782DB700AAD2B7 /* WMPickupList.m */,
+			);
+			path = BottomList;
 			sourceTree = "<group>";
 		};
 		EBB37F361B1FFEE400B0212A /* image */ = {
@@ -345,7 +374,7 @@
 		EB1FC3B11B144EC500B1483F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = zwm;
 				TargetAttributes = {
 					EB1FC3B81B144EC500B1483F = {
@@ -414,24 +443,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB1FC3C81B144EC600B1483F /* SecondViewController.m in Sources */,
-				EB70946A1B1EE9BF0064B023 /* WMDropDownView.m in Sources */,
+				EB51793B1D782DB700AAD2B7 /* WMMenuHead.m in Sources */,
 				EBB37F5A1B1FFF2D00B0212A /* WMTestBtn.m in Sources */,
 				EB1FC3C21B144EC500B1483F /* AppDelegate.m in Sources */,
 				EB1FC3C51B144EC600B1483F /* FirstViewController.m in Sources */,
-				EB1FC3F41B1587B000B1483F /* WMNavTabBar.m in Sources */,
-				EB1FC3EB1B144F4400B1483F /* WMTabControl.m in Sources */,
-				EB7094561B1ECBD10064B023 /* WMMenuCell.m in Sources */,
+				EB51793A1D782DB700AAD2B7 /* WMMenuCell.m in Sources */,
+				EB5179141D782CE800AAD2B7 /* WMSegmentControl.m in Sources */,
 				EB70945F1B1EDF5E0064B023 /* WMCustomMenuCell.m in Sources */,
-				EB1FC3F11B145BF700B1483F /* WMIconSegmentControl.m in Sources */,
-				EB1FC3EE1B14516F00B1483F /* WMSegmentControl.m in Sources */,
+				EB5179301D782DB100AAD2B7 /* WMDropDown2View.m in Sources */,
+				EB5179311D782DB100AAD2B7 /* WMDropDownView.m in Sources */,
+				EB5179121D782CE800AAD2B7 /* WMMaskSegmentControl.m in Sources */,
+				EB5179111D782CE800AAD2B7 /* WMIconSegmentControl.m in Sources */,
 				EBEB19A41B9ED8C90077B029 /* FiveViewController.m in Sources */,
-				EB7094621B1EE5450064B023 /* WMMenuHead.m in Sources */,
-				EBEB19A11B9ED6450077B029 /* WMDropDown2View.m in Sources */,
+				EB5179321D782DB100AAD2B7 /* WMTabControl.m in Sources */,
+				EB5179131D782CE800AAD2B7 /* WMNavTabBar.m in Sources */,
 				EB1FC3BF1B144EC500B1483F /* main.m in Sources */,
 				EB70945C1B1EDC8D0064B023 /* FourViewController.m in Sources */,
 				EB1FC3F71B158EE800B1483F /* ThreeViewController.m in Sources */,
 				EBB37F571B1FFF2000B0212A /* FlatDatePicker.m in Sources */,
-				EB7094591B1ECC040064B023 /* WMPickerControl.m in Sources */,
+				EB51793C1D782DB700AAD2B7 /* WMPickupList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +524,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -509,7 +540,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -546,7 +577,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -558,7 +589,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = segmentAndListDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.enhance.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -568,7 +601,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = segmentAndListDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.enhance.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -587,6 +622,7 @@
 				);
 				INFOPLIST_FILE = segmentAndListDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.enhance.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/segmentAndListDemo.app/segmentAndListDemo";
 			};
@@ -602,6 +638,7 @@
 				);
 				INFOPLIST_FILE = segmentAndListDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.enhance.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/segmentAndListDemo.app/segmentAndListDemo";
 			};

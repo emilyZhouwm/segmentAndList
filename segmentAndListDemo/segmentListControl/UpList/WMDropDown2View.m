@@ -7,7 +7,6 @@
 
 #import "WMDropDown2View.h"
 
-#define kScreen_Width [UIScreen mainScreen].bounds.size.width
 #define kCellH (34)
 #define kTextColor [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0]
 #define kLineColor [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0]
@@ -19,6 +18,8 @@
 #define kIconSpace (15)
 
 @interface WMDropDown2Cell : UITableViewCell
+
+@property (nonatomic, strong) UIView *bottomLine;
 
 + (CGFloat)cellHeight;
 
@@ -39,12 +40,12 @@
         self.textLabel.textColor = kTextColor;
         self.textLabel.font = kTextFont;
         self.textLabel.textAlignment = NSTextAlignmentCenter;
-        
+
         self.imageView.image = kIconImage;
 
-        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, kCellH - 0.6, kScreen_Width, 0.6)];
-        bottomLineView.backgroundColor = kLineColor;
-        [self addSubview:bottomLineView];
+        _bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, kCellH - 0.6, self.frame.size.width, 0.6)];
+        _bottomLine.backgroundColor = kLineColor;
+        [self addSubview:_bottomLine];
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
@@ -54,13 +55,16 @@
 {
     [super layoutSubviews];
 
-    self.imageView.frame = CGRectMake(kScreen_Width - kIconW - kIconSpace, (kCellH - kIconH) * 0.5, kIconW, kIconH);
-    self.textLabel.frame = CGRectMake(0, 0, kScreen_Width, kCellH);
+    _bottomLine.frame = CGRectMake(0, kCellH - 0.6, self.frame.size.width, 0.6);
+    self.imageView.frame = CGRectMake(self.frame.size.width - kIconW - kIconSpace, (kCellH - kIconH) * 0.5, kIconW, kIconH);
+    self.textLabel.frame = CGRectMake(kIconW + 2 * kIconSpace, 0, self.frame.size.width - 2 * (kIconW + 2 * kIconSpace), kCellH);
 }
 
 @end
 
 @interface WMDropDownLeftCell : UITableViewCell
+
+@property (nonatomic, strong) UIView *bottomLine;
 
 + (CGFloat)cellHeight;
 
@@ -81,10 +85,10 @@
         self.textLabel.textColor = kTextColor;
         self.textLabel.font = kTextFont;
         self.textLabel.textAlignment = NSTextAlignmentCenter;
-        
-        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, kCellH - 0.6, kScreen_Width / 3, 0.6)];
-        bottomLineView.backgroundColor = kLineColor;
-        [self addSubview:bottomLineView];
+
+        _bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, kCellH - 0.6, self.frame.size.width, 0.6)];
+        _bottomLine.backgroundColor = kLineColor;
+        [self addSubview:_bottomLine];
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
@@ -94,7 +98,8 @@
 {
     [super layoutSubviews];
 
-    self.textLabel.frame = CGRectMake(0, 0, kScreen_Width / 3, kCellH);
+    _bottomLine.frame = CGRectMake(0, kCellH - 0.6, self.frame.size.width, 0.6);
+    self.textLabel.frame = CGRectMake(0, 0, self.frame.size.width, kCellH);
 }
 
 @end
@@ -130,13 +135,14 @@
 {
     [super layoutSubviews];
 
-    self.textLabel.frame = CGRectMake(0, 0, kScreen_Width / 3 * 2, kCellH);
+    self.textLabel.frame = CGRectMake(0, 0, self.frame.size.width, kCellH);
 }
 
 @end
 
 @interface WMDropDown2View () <UITableViewDataSource, UITableViewDelegate>
 {
+    UIButton *_baseBtn;
     UIView *_baseView;
     UITableView *_tableView;
     UITableView *_rightTableView;
@@ -146,7 +152,7 @@
     NSInteger _secondIndex;
 }
 
-@property (nonatomic, copy) OPDropDownViewBlock block;
+@property (nonatomic, copy) WMDropDown2ViewBlock block;
 @property (nonatomic, copy) NSArray *titles;
 
 @end
@@ -160,45 +166,64 @@
     _leftTableView.delegate = nil;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    if (_tableView) {
+        _baseBtn.frame = self.bounds;
+
+        NSInteger count = _titles.count;
+        while (count * kCellH > self.frame.size.height) {
+            count--;
+        }
+        CGFloat sH = count * kCellH;
+        _baseView.frame = CGRectMake(0, 0, self.frame.size.width, sH);
+        _tableView.frame = CGRectMake(0, 0, self.frame.size.width, sH);
+        _leftTableView.frame = CGRectMake(0, 0, self.frame.size.width / 3, sH);
+        _rightTableView.frame = CGRectMake(self.frame.size.width / 3, 0, self.frame.size.width / 3 * 2, sH);
+        _lineView.frame = CGRectMake(self.frame.size.width / 3, 0, 0.5f, sH);
+    }
+}
+
 - (id)initWithFrame:(CGRect)frame
              titles:(NSArray *)titles
        defaultIndex:(NSInteger)index
-       secondIndex:(NSInteger)secondIndex
-      selectedBlock:(OPDropDownViewBlock)selectedHandle
+        secondIndex:(NSInteger)secondIndex
+      selectedBlock:(WMDropDown2ViewBlock)block
 {
     self = [super initWithFrame:frame];
     if (self && titles.count > 0) {
         self.backgroundColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:0.4];
-        self.block = selectedHandle;
+        self.block = block;
         self.titles = titles;
         self.clipsToBounds = YES;
-        
-        UIButton *baseBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.frame.size.height)];
-        [baseBtn addTarget:self action:@selector(hideView) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:baseBtn];
-        
+
+        _baseBtn = [[UIButton alloc] initWithFrame:self.bounds];
+        [_baseBtn addTarget:self action:@selector(hideView) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_baseBtn];
+
         _index = index;
-        if (_index<0 || _index>=_titles.count) {
+        if (_index < 0 || _index >= _titles.count) {
             _index = 0;
         }
         _secondIndex = secondIndex;
         if (![titles[0] isKindOfClass:[NSString class]]) {
             NSArray *ary = [_titles[_index] objectForKey:@"right"];
-            if (_secondIndex<0 || _secondIndex>=ary.count) {
+            if (_secondIndex < 0 || _secondIndex >= ary.count) {
                 _secondIndex = 0;
             }
         }
-        CGFloat h = _titles.count * kCellH;
-        CGFloat sH = h;
-        if (h + kCellH > self.frame.size.height) {
-            sH = self.frame.size.height - kCellH;
+
+        NSInteger count = _titles.count;
+        while (count * kCellH > self.frame.size.height) {
+            count--;
         }
-        
-        _baseView = [[UIView alloc] initWithFrame:CGRectMake(0, -sH, kScreen_Width, sH)];
+        CGFloat sH = count * kCellH;
+        _baseView = [[UIView alloc] initWithFrame:CGRectMake(0, -sH, self.frame.size.width, sH)];
         _baseView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.95];
         [self addSubview:_baseView];
-        
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, sH)];
+
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, sH)];
         [_baseView addSubview:_tableView];
         [_tableView registerClass:[WMDropDown2Cell class] forCellReuseIdentifier:@"WMDropDown2Cell"];
         _tableView.bounces = FALSE;
@@ -206,8 +231,8 @@
         _tableView.dataSource = self;
         _tableView.backgroundColor = [UIColor clearColor];//
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width / 3, sH)];
+
+        _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width / 3, sH)];
         [_baseView addSubview:_leftTableView];
         [_leftTableView registerClass:[WMDropDownLeftCell class] forCellReuseIdentifier:@"WMDropDownLeftCell"];
         _leftTableView.bounces = FALSE;
@@ -215,8 +240,8 @@
         _leftTableView.dataSource = self;
         _leftTableView.backgroundColor = [UIColor clearColor];//
         _leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-        _rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(kScreen_Width / 3, 0, kScreen_Width, sH)];
+
+        _rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.frame.size.width / 3, 0, self.frame.size.width, sH)];
         [_baseView addSubview:_rightTableView];
         [_rightTableView registerClass:[WMDropDownRightCell class] forCellReuseIdentifier:@"WMDropDownRightCell"];
         _rightTableView.bounces = FALSE;
@@ -224,15 +249,15 @@
         _rightTableView.dataSource = self;
         _rightTableView.backgroundColor = [UIColor clearColor];//
         _rightTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreen_Width / 3, 0, 0.5f, sH)];
+
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width / 3, 0, 0.5f, sH)];
         _lineView.backgroundColor = kLineColor;
         [_baseView addSubview:_lineView];
-        
+
         _lineView.hidden = [titles[0] isKindOfClass:[NSString class]] ? YES : NO;
-        _leftTableView.hidden = [titles[0] isKindOfClass:[NSString class]] ? YES : NO;
-        _rightTableView.hidden = [titles[0] isKindOfClass:[NSString class]] ? YES : NO;
-        _tableView.hidden = [titles[0] isKindOfClass:[NSString class]] ? NO : YES;
+        _leftTableView.hidden = _lineView.hidden;
+        _rightTableView.hidden = _lineView.hidden;
+        _tableView.hidden = !_lineView.hidden;
     }
     return self;
 }
@@ -240,46 +265,47 @@
 - (void)changeWithTitles:(NSArray *)titles
             defaultIndex:(NSInteger)index
              secondIndex:(NSInteger)secondIndex
-           selectedBlock:(OPDropDownViewBlock)selectedHandle
+           selectedBlock:(WMDropDown2ViewBlock)block
 {
     if (titles.count > 0 && _baseView) {
         CGRect frame = _baseView.frame;
         frame.origin.y = -frame.size.height;
-        [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.2 animations:^{
             _baseView.frame = frame;
         } completion:^(BOOL finished) {
-            self.block = selectedHandle;
+            self.block = block;
             self.titles = titles;
-            
+
             _index = index;
-            if (_index<0 || _index>=_titles.count) {
+            if (_index < 0 || _index >= _titles.count) {
                 _index = 0;
             }
             _secondIndex = secondIndex;
             if (![titles[0] isKindOfClass:[NSString class]]) {
                 NSArray *ary = [_titles[_index] objectForKey:@"right"];
-                if (_secondIndex<0 || _secondIndex>=ary.count) {
+                if (_secondIndex < 0 || _secondIndex >= ary.count) {
                     _secondIndex = 0;
                 }
             }
-            CGFloat h = _titles.count * kCellH;
-            CGFloat sH = h;
-            if (h + kCellH > self.frame.size.height) {
-                sH = self.frame.size.height - kCellH;
+
+            NSInteger count = _titles.count;
+            while (count * kCellH > self.frame.size.height) {
+                count--;
             }
-            _baseView.frame = CGRectMake(0, -sH, kScreen_Width, sH);
-            _tableView.frame = CGRectMake(0, 0, kScreen_Width, sH);
+            CGFloat sH = count * kCellH;
+            _baseView.frame = CGRectMake(0, -sH, self.frame.size.width, sH);
+            _tableView.frame = CGRectMake(0, 0, self.frame.size.width, sH);
             [_tableView reloadData];
-            _leftTableView.frame = CGRectMake(0, 0, kScreen_Width / 3, sH);
+            _leftTableView.frame = CGRectMake(0, 0, self.frame.size.width / 3, sH);
             [_leftTableView reloadData];
-            _rightTableView.frame = CGRectMake(kScreen_Width / 3, 0, kScreen_Width / 3 * 2, sH);
+            _rightTableView.frame = CGRectMake(self.frame.size.width / 3, 0, self.frame.size.width / 3 * 2, sH);
             [_rightTableView reloadData];
-            _lineView.frame = CGRectMake(kScreen_Width / 3, 0, 0.5f, sH);
-            
+            _lineView.frame = CGRectMake(self.frame.size.width / 3, 0, 0.5f, sH);
+
             _lineView.hidden = [titles[0] isKindOfClass:[NSString class]] ? YES : NO;
-            _leftTableView.hidden = [titles[0] isKindOfClass:[NSString class]] ? YES : NO;
-            _rightTableView.hidden = [titles[0] isKindOfClass:[NSString class]] ? YES : NO;
-            _tableView.hidden = [titles[0] isKindOfClass:[NSString class]] ? NO : YES;
+            _leftTableView.hidden = _lineView.hidden;
+            _rightTableView.hidden = _lineView.hidden;
+            _tableView.hidden = !_lineView.hidden;
             [self showView];
         }];
     }
@@ -299,7 +325,7 @@
             } else if (_index >= 0 && _index < _titles.count) {
                 NSArray *ary = [_titles[_index] objectForKey:@"right"];
                 return ary.count;
-           }
+            }
         }
     }
     return 0;
@@ -350,7 +376,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
- 
+
     if (tableView == _tableView) {
         NSArray *cells = [tableView visibleCells];
         for (WMDropDown2Cell *cell in cells) {
@@ -406,7 +432,7 @@
 {
     CGRect frame = _baseView.frame;
     frame.origin.y = -frame.size.height;
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         _baseView.frame = frame;
     } completion:^(BOOL finished) {
         if (self.block) {

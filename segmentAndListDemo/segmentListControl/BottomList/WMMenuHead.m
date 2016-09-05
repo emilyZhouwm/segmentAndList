@@ -1,13 +1,12 @@
 //
 //  WMMenuHead.m
-//  segmentAndListDemo
 //
 //  Created by zwm on 15/6/3.
 //  Copyright (c) 2015年 zwm. All rights reserved.
 //
 
 #import "WMMenuHead.h"
-#import "WMPickerControl.h"
+#import "WMPickupList.h"
 
 #define kScreen_Width [UIScreen mainScreen].bounds.size.width
 #define kHeadH 44
@@ -24,26 +23,26 @@
     return kHeadH;
 }
 
-+ (UIView *)addHeadTo:(WMPickerControl *)control withTitle:(NSString *)title
++ (UIView *)addHeadTo:(WMPickupList *)control withTitle:(NSString *)title
 {
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kHeadH)];
     if (headView) {
         headView.backgroundColor = kBackColor;
-       
+
         UIView *topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 0.6)];
         topLineView.backgroundColor = kLineColor;
         [headView addSubview:topLineView];
         UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeadH - 0.6, kScreen_Width, 0.6)];
         bottomLineView.backgroundColor = kLineColor;
         [headView addSubview:bottomLineView];
-        
+
         UILabel *headLbl = [[UILabel alloc] initWithFrame:headView.bounds];
         headLbl.text = title;
         headLbl.font = kHeadFont;
         headLbl.textColor = kTextColor;
         headLbl.textAlignment = NSTextAlignmentCenter;
         [headView addSubview:headLbl];
-        
+
         UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, kHeadH)];
         [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         [cancelBtn setTitleColor:kCancelColor forState:UIControlStateNormal];
@@ -53,6 +52,5 @@
     }
     return headView;
 }
-
 
 @end

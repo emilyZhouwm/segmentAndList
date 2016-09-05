@@ -1,19 +1,11 @@
 //
-//  WMSegmentControl.m
+//  WMTabControl.m
 //
 //  Created by zwm on 15-5-26.
 //  Copyright (c) 2015年 zwm. All rights reserved.
-//  此系列都没有做高度适应，都假设定高
+//
 
 #import "WMTabControl.h"
-
-#define kScreen_Width [UIScreen mainScreen].bounds.size.width
-
-#define kHspace (0)
-#define kLineHeight (2)
-#define kAnimationTime (0.3)
-#define kHorizontalLineH (1)
-#define kVerticalLineSpace (5)
 
 @interface WMTabControlItem : UIView
 
@@ -32,7 +24,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))];
+        _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _titleLabel.font = [UIFont systemFontOfSize:kTextFont];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.text = title;
@@ -46,18 +38,37 @@
         }
         _titleLabel.center = CGPointMake((CGRectGetWidth(self.bounds) - kIconSpace - 10) * 0.5, CGRectGetHeight(self.bounds) * 0.5);
         [self addSubview:_titleLabel];
-        
+
         CGFloat x = CGRectGetMaxX(_titleLabel.frame) + kIconSpace;
         _titleIconView = [[UIImageView alloc] initWithFrame:CGRectMake(x, (CGRectGetHeight(self.bounds) - kIconH) * 0.5, kIconW, kIconH)];
         [_titleIconView setImage:kIconNomal];
         [self addSubview:_titleIconView];
-        
-        _lineView  = [[UIView alloc] initWithFrame:CGRectMake(0, kVerticalLineSpace,
-                                                              0.5, CGRectGetHeight(self.bounds) - kVerticalLineSpace * 2)];
+
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, kVerticalLineSpace,
+                                                             0.5, CGRectGetHeight(self.bounds) - kVerticalLineSpace * 2)];
         _lineView.backgroundColor = kHLineColor;
         [self addSubview:_lineView];
     }
     return self;
+}
+
+- (void)resetUI:(CGRect)frame
+{
+    self.frame = frame;
+
+    _titleLabel.frame = self.bounds;
+    [_titleLabel sizeToFit];
+    if (_titleLabel.frame.size.width > CGRectGetWidth(self.bounds) - kIconSpace - 10) {
+        CGRect frame = _titleLabel.frame;
+        frame.size.width = CGRectGetWidth(self.bounds) - kIconSpace - 10;
+        _titleLabel.frame = frame;
+    }
+    _titleLabel.center = CGPointMake((CGRectGetWidth(self.bounds) - kIconSpace - 10) * 0.5, CGRectGetHeight(self.bounds) * 0.5);
+
+    CGFloat x = CGRectGetMaxX(_titleLabel.frame) + kIconSpace;
+    _titleIconView.frame = CGRectMake(x, (CGRectGetHeight(self.bounds) - kIconH) * 0.5, kIconW, kIconH);
+
+    _lineView.frame = CGRectMake(0, kVerticalLineSpace, 0.5, CGRectGetHeight(self.bounds) - kVerticalLineSpace * 2);
 }
 
 - (void)setSelected:(BOOL)selected
@@ -96,6 +107,7 @@
 @end
 
 @implementation WMTabControl
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -103,27 +115,44 @@
         _contentView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
         _contentView.frame = self.bounds;
         _bottomLineView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - kHorizontalLineH, CGRectGetWidth(self.bounds), kHorizontalLineH);
+
+        CGFloat x = 0;
+        CGFloat height = CGRectGetHeight(self.bounds);
+        CGFloat width = self.frame.size.width / _itemFrames.count;
+
+        for (int i = 0; i < _itemFrames.count; i++) {
+            x = i > 0 ? CGRectGetMaxX([_itemFrames[i-1] CGRectValue]) : 0;
+            CGRect rect = CGRectMake(x, 0, width, height);
+            [_itemFrames replaceObjectAtIndex:i withObject:[NSValue valueWithCGRect:rect]];
+            if (i == _currentIndex) {
+                _lineView.frame = CGRectMake(x + kHspace, height - kLineHeight - kHorizontalLineH, width - 2 * kHspace, kLineHeight);
+            }
+            WMTabControlItem *item = _itemViews[i];
+            [item resetUI:rect];
+        }
+
+        [_contentView setContentSize:CGSizeMake(x + width, height)];
     }
 }
 
 - (void)initUI
 {
     if (!_contentView) {
+        [self layoutIfNeeded];
         _contentView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _contentView.backgroundColor = [UIColor clearColor];
         _contentView.delegate = self;
         _contentView.showsHorizontalScrollIndicator = NO;
         _contentView.scrollsToTop = NO;
         [self addSubview:_contentView];
-        
+
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doTap:)];
         [_contentView addGestureRecognizer:tapGes];
         [tapGes requireGestureRecognizerToFail:_contentView.panGestureRecognizer];
-
         _lineView = [[UIView alloc] initWithFrame:CGRectZero];
         _lineView.backgroundColor = kLineColor;
         [_contentView addSubview:_lineView];
-        
+
         _bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) - kHorizontalLineH, CGRectGetWidth(self.bounds), kHorizontalLineH)];
         _bottomLineView.backgroundColor = kHLineColor;
         [self addSubview:_bottomLineView];
@@ -132,31 +161,30 @@
 
 - (void)setItemsWithTitleArray:(NSArray *)titleArray selectedBlock:(WMTabControlBlock)selectedHandle
 {
-    self.block = selectedHandle;
-    [self setItemsWithTitleArray:titleArray];
-}
-
-- (void)setItemsWithTitleArray:(NSArray *)titleArray
-{
+    if (titleArray.count <= 0) {
+        return;
+    }
     [self initUI];
+
+    _block = selectedHandle;
+
     if (_itemViews.count > 0) {
         for (WMTabControlItem *item in _itemViews) {
             [item removeFromSuperview];
         }
     }
-    
     _itemFrames = @[].mutableCopy;
     _itemViews = @[].mutableCopy;
-        
-    float y = 0;
-    float height = CGRectGetHeight(self.bounds);
-    
+
+    CGFloat x = 0;
+    CGFloat height = CGRectGetHeight(self.bounds);
+    CGFloat width = self.frame.size.width / titleArray.count;
+
     for (int i = 0; i < titleArray.count; i++) {
-        float x = i > 0 ? CGRectGetMaxX([_itemFrames[i-1] CGRectValue]) : 0;
-        float width = kScreen_Width / titleArray.count;
-        CGRect rect = CGRectMake(x, y, width, height);
+        x = i > 0 ? CGRectGetMaxX([_itemFrames[i-1] CGRectValue]) : 0;
+        CGRect rect = CGRectMake(x, 0, width, height);
         [_itemFrames addObject:[NSValue valueWithCGRect:rect]];
-        
+
         NSString *title = titleArray[i];
         if ([title isKindOfClass:[NSDictionary class]] || [title isKindOfClass:[NSMutableDictionary class]]) {
             title = [titleArray[i] objectForKey:@"left"];
@@ -166,8 +194,8 @@
         [_contentView addSubview:item];
         item.lineView.hidden = i > 0 ? FALSE : TRUE;
     }
-    
-    [_contentView setContentSize:CGSizeMake(CGRectGetMaxX([[_itemFrames lastObject] CGRectValue]), CGRectGetHeight(self.bounds))];
+
+    [_contentView setContentSize:CGSizeMake(x + width, CGRectGetHeight(self.bounds))];
     [self selectIndex:-1];
 }
 
@@ -180,7 +208,7 @@
 - (void)setCurrentIndex:(NSInteger)currentIndex
 {
     currentIndex = MAX(0, MIN(currentIndex, _itemViews.count));
-    
+
     if (currentIndex != _currentIndex) {
         WMTabControlItem *preItem = [_itemViews objectAtIndex:_currentIndex];
         WMTabControlItem *curItem = [_itemViews objectAtIndex:currentIndex];
@@ -200,7 +228,7 @@
         }
     } else {
         _lineView.hidden = FALSE;
-        
+
         if (index != _currentIndex) {
             WMTabControlItem *curItem = [_itemViews objectAtIndex:index];
             CGRect rect = [_itemFrames[index] CGRectValue];
@@ -228,19 +256,17 @@
 - (void)doTap:(UITapGestureRecognizer *)sender
 {
     CGPoint point = [sender locationInView:sender.view];
-    
+
     __weak typeof(self) weakSelf = self;
-    
+
     [_itemFrames enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
         CGRect rect = [obj CGRectValue];
-        
+
         if (CGRectContainsPoint(rect, point)) {
-            
             [weakSelf selectIndex:idx];
-            
+
             [weakSelf transformAction:idx];
-            
+
             *stop = YES;
         }
     }];
@@ -248,12 +274,9 @@
 
 - (void)transformAction:(NSInteger)index
 {
-    if (self.delegate && [self.delegate conformsToProtocol:@protocol(WMTabControlDelegate)] && [self.delegate respondsToSelector:@selector(segmentControl:selectedIndex:)]) {
-        
-        [self.delegate segmentControl:self selectedIndex:index];
-        
+    if (self.delegate && [self.delegate conformsToProtocol:@protocol(WMTabControlDelegate)] && [self.delegate respondsToSelector:@selector(control:selectedIndex:)]) {
+        [self.delegate control:self selectedIndex:index];
     } else if (self.block) {
-        
         self.block(index);
     }
 }

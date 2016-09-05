@@ -1,5 +1,5 @@
 //
-//  OPDropDownView.m
+//  WMDropDownView.m
 //
 //  Created by zwm on 15-5-26.
 //  Copyright (c) 2015年 zwm. All rights reserved.
@@ -8,15 +8,14 @@
 #import "WMDropDownView.h"
 #import "WMMenuCell.h"
 
-#define kScreen_Width [UIScreen mainScreen].bounds.size.width
 #define kCellH (34)
-#define kTextColor [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0]
-#define kLineColor [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0]
-#define kTextFont [UIFont systemFontOfSize:14]
 
 static Class _cellClass = nil;
 
 @interface WMDropDownView () <UITableViewDataSource, UITableViewDelegate>
+{
+    UIButton *_baseBtn;
+}
 
 @property (nonatomic, copy) WMDropDownViewBlock block;
 @property (nonatomic, copy) NSArray *titles;
@@ -26,6 +25,7 @@ static Class _cellClass = nil;
 @end
 
 @implementation WMDropDownView
+
 + (void)setCellClass:(Class)cellClass
 {
     _cellClass = cellClass;
@@ -36,31 +36,46 @@ static Class _cellClass = nil;
     _tableView.delegate = nil;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    if (_tableView) {
+        _baseBtn.frame = self.bounds;
+
+        NSInteger count = _titles.count;
+        while (count * kCellH > self.frame.size.height) {
+            count--;
+        }
+        CGFloat sH = count * kCellH;
+        _tableView.frame = CGRectMake(0, 0, self.frame.size.width, sH);
+    }
+}
+
 - (id)initWithFrame:(CGRect)frame
              titles:(NSArray *)titles
        defaultIndex:(NSInteger)index
-      selectedBlock:(WMDropDownViewBlock)selectedHandle
+      selectedBlock:(WMDropDownViewBlock)block
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:0.4];
-        self.block = selectedHandle;
+        self.block = block;
         self.titles = titles;
         self.clipsToBounds = YES;
-        
-        UIButton *baseBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, self.frame.size.height)];
-        [baseBtn addTarget:self action:@selector(hideView) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:baseBtn];
-        
+
+        _baseBtn = [[UIButton alloc] initWithFrame:self.bounds];
+        [_baseBtn addTarget:self action:@selector(hideView) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_baseBtn];
+
         _index = index;
-        CGFloat h = _titles.count * kCellH;
-        CGFloat sH = h;
-        if (h + kCellH > self.frame.size.height) {
-            sH = self.frame.size.height - kCellH;
+        NSInteger count = _titles.count;
+        while (count * kCellH > self.frame.size.height) {
+            count--;
         }
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -sH, kScreen_Width, sH)];
+        CGFloat sH = count * kCellH;
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -sH, self.frame.size.width, sH)];
         [self addSubview:_tableView];
-        
+
         if (!_cellClass) {
             _cellClass = [WMMenuCell class];
         }
@@ -80,21 +95,21 @@ static Class _cellClass = nil;
 {
     CGRect frame = _tableView.frame;
     frame.origin.y = -frame.size.height;
-    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         _tableView.frame = frame;
-    } completion:^(BOOL finished) {      
+    } completion:^(BOOL finished) {
         self.block = selectedHandle;
         self.titles = titles;
-        
+
         _index = index;
-        CGFloat h = _titles.count * kCellH;
-        CGFloat sH = h;
-        if (h + kCellH > self.frame.size.height) {
-            sH = self.frame.size.height - kCellH;
+        NSInteger count = _titles.count;
+        while (count * kCellH > self.frame.size.height) {
+            count--;
         }
-        _tableView.frame = CGRectMake(0, -sH, kScreen_Width, sH);
+        CGFloat sH = count * kCellH;
+        _tableView.frame = CGRectMake(0, -sH, self.frame.size.width, sH);
         [_tableView reloadData];
-        
+
         [self showView];
     }];
 }
@@ -128,12 +143,12 @@ static Class _cellClass = nil;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
- 
+
     NSArray *cells = [tableView visibleCells];
     for (WMMenuCell *cell in cells) {
         [cell setIsSelect:(cell.tag == indexPath.row + 1000)];
     }
-    if (_index!=indexPath.row && self.block) {
+    if (_index != indexPath.row && self.block) {
         _index = indexPath.row;
         self.block(_titles[indexPath.row], indexPath.row);
     }
@@ -154,7 +169,7 @@ static Class _cellClass = nil;
 {
     CGRect frame = _tableView.frame;
     frame.origin.y = -frame.size.height;
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         _tableView.frame = frame;
     } completion:^(BOOL finished) {
         if (self.block) {

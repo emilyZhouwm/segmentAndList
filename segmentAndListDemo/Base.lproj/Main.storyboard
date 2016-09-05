@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--First-->
@@ -126,25 +126,6 @@
             </objects>
             <point key="canvasLocation" x="369" y="583"/>
         </scene>
-        <!--Four-->
-        <scene sceneID="Vtr-gA-4Ib">
-            <objects>
-                <viewController storyboardIdentifier="FourViewController" title="Four" id="LYT-gA-IbL" customClass="FourViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1sC-pM-m4j"/>
-                        <viewControllerLayoutGuide type="bottom" id="FbM-P2-knr"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="idU-av-nRD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Four" image="second" id="zsq-kk-EYI"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qKK-ew-O9L" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="751" y="583"/>
-        </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
@@ -169,9 +150,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="6yg-sw-hPo"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="XOu-eJ-Wy3"/>
-                                </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ChB-jj-zju" customClass="WMIconSegmentControl">
                                 <rect key="frame" x="0.0" y="260" width="320" height="60"/>
@@ -185,9 +163,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="El8-Qj-XiR"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="DGq-Q7-Nmn"/>
-                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -239,7 +214,7 @@
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="MsY-az-wZw" kind="relationship" relationship="viewControllers" id="jvN-ME-lYv"/>
-                        <segue destination="LYT-gA-IbL" kind="relationship" relationship="viewControllers" id="ceK-tk-omJ"/>
+                        <segue destination="PoV-ES-5iL" kind="relationship" relationship="viewControllers" id="FKS-CT-Rhg"/>
                         <segue destination="pi6-qZ-E5G" kind="relationship" relationship="viewControllers" id="czr-xe-Ped"/>
                     </connections>
                 </tabBarController>
@@ -280,14 +255,60 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="dpv-qn-0kD"/>
+                    <tabBarItem key="tabBarItem" title="Five" image="first" id="dpv-qn-0kD"/>
                     <connections>
                         <outlet property="tabControl" destination="UvD-IP-RxV" id="Plg-Y3-CFa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QzW-N8-Occ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-371" y="1208"/>
+            <point key="canvasLocation" x="1064" y="583"/>
+        </scene>
+        <!--Four-->
+        <scene sceneID="yS3-vh-o2S">
+            <objects>
+                <viewController storyboardIdentifier="FourViewController" id="PoV-ES-5iL" customClass="FourViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dqH-9E-Q4f"/>
+                        <viewControllerLayoutGuide type="bottom" id="5id-lo-qna"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="F66-mF-Rwf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avn-D9-rY5" customClass="WMMaskSegmentControl">
+                                <rect key="frame" x="0.0" y="20" width="320" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="wPs-nP-FZB"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ijq-RO-ZsN">
+                                <rect key="frame" x="0.0" y="60" width="320" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="kPL-GO-jMX"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="avn-D9-rY5" secondAttribute="trailing" id="4T6-px-syE"/>
+                            <constraint firstItem="avn-D9-rY5" firstAttribute="top" secondItem="dqH-9E-Q4f" secondAttribute="bottom" id="4rj-fN-K4k"/>
+                            <constraint firstItem="ijq-RO-ZsN" firstAttribute="top" secondItem="avn-D9-rY5" secondAttribute="bottom" id="95o-Yd-CsM"/>
+                            <constraint firstItem="ijq-RO-ZsN" firstAttribute="leading" secondItem="F66-mF-Rwf" secondAttribute="leading" id="Okp-jl-WK9"/>
+                            <constraint firstItem="avn-D9-rY5" firstAttribute="leading" secondItem="F66-mF-Rwf" secondAttribute="leading" id="b78-6I-av8"/>
+                            <constraint firstAttribute="trailing" secondItem="ijq-RO-ZsN" secondAttribute="trailing" id="xSz-Ug-jGg"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Four" image="second" id="IDi-Em-Fz1"/>
+                    <connections>
+                        <outlet property="scroll1" destination="ijq-RO-ZsN" id="GjB-7v-0oT"/>
+                        <outlet property="segmentControl" destination="avn-D9-rY5" id="wzP-67-QLd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eHH-R0-L8x" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="728" y="583"/>
         </scene>
     </scenes>
     <resources>

@@ -7,17 +7,21 @@
 //
 
 #import "FourViewController.h"
-#import "WMPickerControl.h"
+#import "WMPickupList.h"
 #import "WMCustomMenuCell.h"
 #import "WMTestBtn.h"
 #import "FlatDatePicker.h"
+#import "WMMaskSegmentControl.h"
 
 #define kScreen_Width [UIScreen mainScreen].bounds.size.width
+#define kRandomColor [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0]
 
 @interface FourViewController () <FlatDatePickerDelegate>
 {
     NSInteger _index;
-    NSArray *_jobType;
+    NSArray<DownMenuTitle *> *_jobType;
+
+    NSMutableArray<UIView *> *_views;
 }
 
 @property (strong, nonatomic) WMTestBtn *pickerBtn;
@@ -26,67 +30,97 @@
 @property (strong, nonatomic) WMTestBtn *moreBtn;
 @property (strong, nonatomic) FlatDatePicker *flatDatePicker;
 
+@property (weak, nonatomic) IBOutlet WMMaskSegmentControl *segmentControl;
+@property (weak, nonatomic) IBOutlet UIScrollView *scroll1;
+
 @end
 
 @implementation FourViewController
 
-- (void)viewDidLoad {
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    _segmentControl.isStop = TRUE;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    for (int i = 0; i < _views.count; i++) {
+        UIView *v = _views[i];
+        v.frame = CGRectMake(kScreen_Width * i, 0, kScreen_Width, _scroll1.frame.size.height);
+    }
+    _scroll1.contentSize = CGSizeMake(kScreen_Width * _views.count, 0);
+    _scroll1.contentOffset = CGPointMake(_scroll1.frame.size.width * _segmentControl.currentIndex, 0);
+    _segmentControl.isStop = FALSE;
+}
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    _views = @[].mutableCopy;
+
+    NSArray *titleAry = @[@"全部", @"区域一", @"薪资二二", @"全部", @"区域一", @"薪资二二"];
+    _segmentControl.segmentType = WMMaskSegmentSize;
+    [_segmentControl setItemsWithTitleArray:titleAry andScrollView:_scroll1 selectedBlock:^(NSInteger index) {
+        NSLog(@"_segmentControl : %ld", (long)index);
+    }];
+
+    for (int i = 0; i < titleAry.count; i++) {
+        CGRect rect = CGRectMake(kScreen_Width * i, 0, kScreen_Width, _scroll1.frame.size.height);
+        UIView *v = [[UIView alloc] initWithFrame:rect];
+        v.backgroundColor = kRandomColor;
+        [_views addObject:v];
+        [_scroll1 addSubview:v];
+    }
+    _scroll1.contentSize = CGSizeMake(kScreen_Width * titleAry.count, 0);
+
+    ///
     _index = -1;
     _jobType = @[[DownMenuTitle title:@"广场" image:@"nav_tweet_all"],
                  [DownMenuTitle title:@"好友圈" image:@"nav_tweet_friend"],
                  [DownMenuTitle title:@"热门" image:@"nav_tweet_hot"],
                  [DownMenuTitle title:@"我的" image:@"nav_tweet_mine"]];
-    
-    self.pickerBtn = [[WMTestBtn alloc] initWithFrame:CGRectMake(100, 270, 100, 40)];
+
+    self.pickerBtn = [[WMTestBtn alloc] initWithFrame:CGRectMake(200, 350, 100, 40)];
     [_pickerBtn addTarget:self action:@selector(pickerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_pickerBtn];
     [_pickerBtn setTitle:@"点击" forState:UIControlStateNormal];
-    
-    self.dateBtn = [[WMTestBtn alloc] initWithFrame:CGRectMake(100, 100, 100, 40)];
+
+    self.dateBtn = [[WMTestBtn alloc] initWithFrame:CGRectMake(60, 270, 100, 40)];
     [_dateBtn addTarget:self action:@selector(pickerDateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_dateBtn];
     [_dateBtn setTitle:@"日期" forState:UIControlStateNormal];
-    
-    self.timeBtn = [[WMTestBtn alloc] initWithFrame:CGRectMake(100, 150, 100, 40)];
+
+    self.timeBtn = [[WMTestBtn alloc] initWithFrame:CGRectMake(200, 270, 100, 40)];
     [_timeBtn addTarget:self action:@selector(pickerTimeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_timeBtn];
     [_timeBtn setTitle:@"时间" forState:UIControlStateNormal];
-    
-    self.moreBtn = [[WMTestBtn alloc] initWithFrame:CGRectMake(100, 200, 100, 40)];
+
+    self.moreBtn = [[WMTestBtn alloc] initWithFrame:CGRectMake(60, 350, 100, 40)];
     [_moreBtn addTarget:self action:@selector(pickerMoreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_moreBtn];
     [_moreBtn setTitle:@"更多" forState:UIControlStateNormal];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (void)pickerBtnClick:(UIButton *)sender
 {
     sender.selected = !sender.selected;//
-    __weak typeof(self)weakSelf = self;
-    [WMPickerControl setCellClass:[WMCustomMenuCell class]];// 使用自定义类型
-    [WMPickerControl showWithTitle:@"选择工作类型"
-                         WithTitles:_jobType
-                       defaultIndex:_index
-                      selectedBlock:^(id title, NSInteger index) {
-                          [weakSelf changeTitle:title toIndex:index];
-                      }];
+    __weak typeof(self) weakSelf = self;
+    [WMPickupList setCellClass:[WMCustomMenuCell class]];// 使用自定义类型
+    [WMPickupList showWithTitle:@"选择工作类型"
+                     WithTitles:_jobType
+                   defaultIndex:_index
+                  selectedBlock:^(id title, NSInteger index) {
+        [weakSelf changeTitle:title toIndex:index];
+    }];
 }
 
 - (void)changeTitle:(DownMenuTitle *)title toIndex:(NSInteger)index
@@ -144,7 +178,6 @@
 #pragma mark - FlatDatePickerDelegate
 - (void)flatDatePicker:(FlatDatePicker *)datePicker dateDidChange:(NSDate *)date
 {
-    
 }
 
 - (void)flatDatePicker:(FlatDatePicker *)datePicker didCancel:(UIButton *)sender
@@ -160,21 +193,19 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         NSString *destDateString = [dateFormatter stringFromDate:date];
- 
+
         [_dateBtn setTitle:destDateString forState:UIControlStateNormal];
-    }
-    else if (datePicker.datePickerMode == FlatDatePickerModeTime) {
+    } else if (datePicker.datePickerMode == FlatDatePickerModeTime) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"HH:mm:ss"];
         NSString *destDateString = [dateFormatter stringFromDate:date];
-        
+
         [_timeBtn setTitle:destDateString forState:UIControlStateNormal];
-    }
-    else if (datePicker.datePickerMode == FlatDatePickerModeDateAndTime) {
+    } else if (datePicker.datePickerMode == FlatDatePickerModeDateAndTime) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSString *destDateString = [dateFormatter stringFromDate:date];
-        
+
         [_moreBtn setTitle:destDateString forState:UIControlStateNormal];
     }
 }

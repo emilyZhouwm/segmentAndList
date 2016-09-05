@@ -5,7 +5,7 @@
 //  Copyright (c) 2015年 zwm. All rights reserved.
 //
 
-#import "WMPickerControl.h"
+#import "WMPickupList.h"
 #import "WMMenuCell.h"
 #import "WMMenuHead.h"
 
@@ -15,9 +15,9 @@
 static Class _cellClass = nil;
 static Class _headClass = nil;
 
-@interface WMPickerControl () <UITableViewDelegate, UITableViewDataSource>
+@interface WMPickupList () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, copy) WMPickerControlBlock block;
+@property (nonatomic, copy) WMPickupListBlock block;
 @property (nonatomic, copy) NSArray *titles;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *baseView;
@@ -25,7 +25,7 @@ static Class _headClass = nil;
 
 @end
 
-@implementation WMPickerControl
+@implementation WMPickupList
 + (void)setCellClass:(Class)cellClass
 {
     _cellClass = cellClass;
@@ -39,9 +39,9 @@ static Class _headClass = nil;
 + (void)showWithTitle:(NSString *)title
            WithTitles:(NSArray *)titles
          defaultIndex:(NSInteger)index
-        selectedBlock:(WMPickerControlBlock)selectedHandle
+        selectedBlock:(WMPickupListBlock)block
 {
-    WMPickerControl *picker = [[WMPickerControl alloc] initWithTitle:title WithTitles:titles defaultIndex:index selectedBlock:selectedHandle];
+    WMPickupList *picker = [[WMPickupList alloc] initWithTitle:title WithTitles:titles defaultIndex:index selectedBlock:block];
     [[[UIApplication sharedApplication].windows firstObject] addSubview:picker];
     [picker showView];
 }
@@ -49,36 +49,36 @@ static Class _headClass = nil;
 - (id)initWithTitle:(NSString *)title
          WithTitles:(NSArray *)titles
        defaultIndex:(NSInteger)index
-      selectedBlock:(WMPickerControlBlock)selectedHandle
+      selectedBlock:(WMPickupListBlock)block
 {
     self = [super initWithFrame:[UIScreen mainScreen].bounds];
     if (self) {
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
-        self.block = selectedHandle;
+        self.block = block;
         self.titles = titles;
         self.clipsToBounds = YES;
-        
+
         UIButton *baseBtn = [[UIButton alloc] initWithFrame:self.bounds];
         [baseBtn addTarget:self action:@selector(hideView) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:baseBtn];
-        
+
         if (!_headClass) {
             _headClass = [WMMenuHead class];
         }
         if (!_cellClass) {
             _cellClass = [WMMenuCell class];
         }
-        
+
         self.baseView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreen_Height, kScreen_Width, [_headClass headHeight] + [_cellClass tableHeight])];
         _baseView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_baseView];
 
         [_baseView addSubview:[_headClass addHeadTo:self withTitle:title]];
-        
+
         self.index = index;
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, [_headClass headHeight], kScreen_Width, [_cellClass tableHeight])];
         [_baseView addSubview:_tableView];
- 
+
         [_tableView registerClass:_cellClass forCellReuseIdentifier:NSStringFromClass(_cellClass)];
         _tableView.bounces = FALSE;
         _tableView.delegate = self;
@@ -117,7 +117,7 @@ static Class _headClass = nil;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     NSArray *cells = [tableView visibleCells];
     for (WMMenuCell *cell in cells) {
         [cell setIsSelect:(cell.tag == indexPath.row + 1000)];
