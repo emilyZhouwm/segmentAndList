@@ -33,7 +33,7 @@
     // Do any additional setup after loading the view.
 
     {
-        NSArray *titleAry = @[@"精选", @"优惠", @"海淘", @"精选", @"优惠", @"海淘", @"精选", @"优惠", @"海淘"];
+        NSArray *titleAry = @[@"精选精选", @"优惠优惠", @"海淘海淘", @"精选", @"优惠", @"海淘", @"精选一", @"优惠二", @"海淘三"];
         _navTabBar.delegate = self;
         _navTabBar.isFont = TRUE;
         [_navTabBar setItemTitles:titleAry andScrollView:_scrollView1 selectedBlock:nil];
@@ -50,7 +50,7 @@
     }
 
     {
-        NSArray *titleAry = @[@"精选", @"优惠", @"海淘"];
+        NSArray *titleAry = @[@"精选精选", @"优惠优惠", @"海淘海淘"];
         _navTabBarSamp.isSamp = TRUE;// !!!选择平摊
         _navTabBarSamp.delegate = self;
         [_navTabBarSamp setItemTitles:titleAry andScrollView:_scrollView2 selectedBlock:nil];
@@ -70,6 +70,7 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
+    // 转屏时设置一下
     _navTabBar.isStop = TRUE;
     _navTabBarSamp.isStop = TRUE;
 }
@@ -105,11 +106,11 @@
 {
     if (tabBar == _navTabBarSamp) {
     } else if (tabBar == _navTabBar) {
-    }
-    if (isRepeat) {
-        [self scrollHead:index];
-    } else {
-        [self loadData:index];
+        if (isRepeat) {
+            [self scrollHead:index];
+        } else {
+            [self loadData:index];
+        }
     }
 }
 

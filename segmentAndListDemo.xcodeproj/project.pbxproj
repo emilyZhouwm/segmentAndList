@@ -14,7 +14,6 @@
 		EB1FC3CB1B144EC600B1483F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB1FC3C91B144EC600B1483F /* Main.storyboard */; };
 		EB1FC3CD1B144EC600B1483F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB1FC3CC1B144EC600B1483F /* Images.xcassets */; };
 		EB1FC3D01B144EC600B1483F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB1FC3CE1B144EC600B1483F /* LaunchScreen.xib */; };
-		EB1FC3DC1B144EC600B1483F /* segmentAndListDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1FC3DB1B144EC600B1483F /* segmentAndListDemoTests.m */; };
 		EB1FC3F71B158EE800B1483F /* ThreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1FC3F61B158EE800B1483F /* ThreeViewController.m */; };
 		EB5179111D782CE800AAD2B7 /* WMIconSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB51790A1D782CE800AAD2B7 /* WMIconSegmentControl.m */; };
 		EB5179121D782CE800AAD2B7 /* WMMaskSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB51790C1D782CE800AAD2B7 /* WMMaskSegmentControl.m */; };
@@ -45,16 +44,6 @@
 		EBEB19A41B9ED8C90077B029 /* FiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBEB19A31B9ED8C90077B029 /* FiveViewController.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		EB1FC3D61B144EC600B1483F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EB1FC3B11B144EC500B1483F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EB1FC3B81B144EC500B1483F;
-			remoteInfo = segmentAndListDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		EB1FC3B91B144EC500B1483F /* segmentAndListDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = segmentAndListDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB1FC3BD1B144EC500B1483F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,9 +57,6 @@
 		EB1FC3CA1B144EC600B1483F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EB1FC3CC1B144EC600B1483F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EB1FC3CF1B144EC600B1483F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		EB1FC3D51B144EC600B1483F /* segmentAndListDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = segmentAndListDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB1FC3DA1B144EC600B1483F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB1FC3DB1B144EC600B1483F /* segmentAndListDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = segmentAndListDemoTests.m; sourceTree = "<group>"; };
 		EB1FC3F51B158EE800B1483F /* ThreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeViewController.h; sourceTree = "<group>"; };
 		EB1FC3F61B158EE800B1483F /* ThreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeViewController.m; sourceTree = "<group>"; };
 		EB5179091D782CE800AAD2B7 /* WMIconSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMIconSegmentControl.h; sourceTree = "<group>"; };
@@ -125,13 +111,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EB1FC3D21B144EC600B1483F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -139,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				EB1FC3BB1B144EC500B1483F /* segmentAndListDemo */,
-				EB1FC3D81B144EC600B1483F /* segmentAndListDemoTests */,
 				EB1FC3BA1B144EC500B1483F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -148,7 +126,6 @@
 			isa = PBXGroup;
 			children = (
 				EB1FC3B91B144EC500B1483F /* segmentAndListDemo.app */,
-				EB1FC3D51B144EC600B1483F /* segmentAndListDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -187,23 +164,6 @@
 			children = (
 				EB1FC3BD1B144EC500B1483F /* Info.plist */,
 				EB1FC3BE1B144EC500B1483F /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		EB1FC3D81B144EC600B1483F /* segmentAndListDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				EB1FC3DB1B144EC600B1483F /* segmentAndListDemoTests.m */,
-				EB1FC3D91B144EC600B1483F /* Supporting Files */,
-			);
-			path = segmentAndListDemoTests;
-			sourceTree = "<group>";
-		};
-		EB1FC3D91B144EC600B1483F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				EB1FC3DA1B144EC600B1483F /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -350,39 +310,18 @@
 			productReference = EB1FC3B91B144EC500B1483F /* segmentAndListDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EB1FC3D41B144EC600B1483F /* segmentAndListDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EB1FC3E21B144EC600B1483F /* Build configuration list for PBXNativeTarget "segmentAndListDemoTests" */;
-			buildPhases = (
-				EB1FC3D11B144EC600B1483F /* Sources */,
-				EB1FC3D21B144EC600B1483F /* Frameworks */,
-				EB1FC3D31B144EC600B1483F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EB1FC3D71B144EC600B1483F /* PBXTargetDependency */,
-			);
-			name = segmentAndListDemoTests;
-			productName = segmentAndListDemoTests;
-			productReference = EB1FC3D51B144EC600B1483F /* segmentAndListDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		EB1FC3B11B144EC500B1483F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = zwm;
 				TargetAttributes = {
 					EB1FC3B81B144EC500B1483F = {
 						CreatedOnToolsVersion = 6.3.2;
-					};
-					EB1FC3D41B144EC600B1483F = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = EB1FC3B81B144EC500B1483F;
+						DevelopmentTeam = ZT38DY35DB;
 					};
 				};
 			};
@@ -400,7 +339,6 @@
 			projectRoot = "";
 			targets = (
 				EB1FC3B81B144EC500B1483F /* segmentAndListDemo */,
-				EB1FC3D41B144EC600B1483F /* segmentAndListDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -425,13 +363,6 @@
 				EBB37F4A1B1FFEE400B0212A /* icon_arrow@3x.png in Resources */,
 				EBB37F511B1FFEE400B0212A /* Shade_right@2x.png in Resources */,
 				EBB37F4B1B1FFEE400B0212A /* Contents.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EB1FC3D31B144EC600B1483F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,23 +396,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EB1FC3D11B144EC600B1483F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EB1FC3DC1B144EC600B1483F /* segmentAndListDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		EB1FC3D71B144EC600B1483F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EB1FC3B81B144EC500B1483F /* segmentAndListDemo */;
-			targetProxy = EB1FC3D61B144EC600B1483F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EB1FC3C91B144EC600B1483F /* Main.storyboard */ = {
@@ -516,8 +431,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -540,7 +457,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -560,8 +477,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -577,7 +496,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -588,8 +507,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZT38DY35DB;
 				INFOPLIST_FILE = segmentAndListDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.enhance.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -600,47 +520,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZT38DY35DB;
 				INFOPLIST_FILE = segmentAndListDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.enhance.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		EB1FC3E31B144EC600B1483F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = segmentAndListDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.enhance.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/segmentAndListDemo.app/segmentAndListDemo";
-			};
-			name = Debug;
-		};
-		EB1FC3E41B144EC600B1483F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = segmentAndListDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.enhance.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/segmentAndListDemo.app/segmentAndListDemo";
 			};
 			name = Release;
 		};
@@ -661,15 +546,6 @@
 			buildConfigurations = (
 				EB1FC3E01B144EC600B1483F /* Debug */,
 				EB1FC3E11B144EC600B1483F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EB1FC3E21B144EC600B1483F /* Build configuration list for PBXNativeTarget "segmentAndListDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EB1FC3E31B144EC600B1483F /* Debug */,
-				EB1FC3E41B144EC600B1483F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

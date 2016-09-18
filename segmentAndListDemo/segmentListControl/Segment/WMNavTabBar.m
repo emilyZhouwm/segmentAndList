@@ -10,10 +10,11 @@
 #define kBarSpeace 10
 #define kBarLine 2
 
+// 焦点不在时的颜色
 #define kGreyColor [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1.0]
+
 #define kColor(r, g, b) [UIColor colorWithRed: (r)/255.0 green: (g)/255.0 blue: (b)/255.0 alpha: 1.0]
 #define kScreen_Width [UIScreen mainScreen].bounds.size.width
-#define kRandomColor [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0]
 
 @interface WMNavTabBar () <UIScrollViewDelegate>
 {
@@ -245,7 +246,12 @@
             button1.transform = CGAffineTransformMakeScale(scale1, scale1);
         }
 
-        CGFloat width = ([_itemsWidth[index] floatValue] * tt + [_itemsWidth[index + 1] floatValue] * (1-tt)) - _barSpeace * 2;
+        CGFloat dw = ([_itemsWidth[index] floatValue] + [_itemsWidth[index + 1] floatValue]) * 0.5;
+        CGFloat dt = tt > 0.5 ? (1 - tt) : tt;
+        dw *= dt;
+        
+        CGFloat width = ([_itemsWidth[index] floatValue] * tt + [_itemsWidth[index + 1] floatValue] * (1-tt)) - _barSpeace * 2 + dw;
+   
         CGFloat x = button1.center.x - width * 0.5 - button.frame.size.width * tt;
 
         CGFloat w = [_itemsWidth[index] floatValue] - _barSpeace * 2;
@@ -274,7 +280,11 @@
                 button1.transform = CGAffineTransformMakeScale(scale1, scale1);
             }
 
-            CGFloat width = ([_itemsWidth[index - 1] floatValue] * (1-tt) + [_itemsWidth[index] floatValue] * tt) - _barSpeace * 2;
+            CGFloat dw = ([_itemsWidth[index] floatValue] + [_itemsWidth[index - 1] floatValue]) * 0.5;
+            CGFloat dt = tt > 0.5 ? (1 - tt) : tt;
+            dw *= dt;
+            
+            CGFloat width = ([_itemsWidth[index - 1] floatValue] * (1-tt) + [_itemsWidth[index] floatValue] * tt) - _barSpeace * 2 + dw;
             CGFloat x = button1.center.x - width * 0.5 + button1.frame.size.width * tt;
 
             CGFloat w = [_itemsWidth[index] floatValue] - _barSpeace * 2;

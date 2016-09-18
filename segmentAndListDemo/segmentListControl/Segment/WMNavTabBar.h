@@ -7,17 +7,21 @@
 
 #import <UIKit/UIKit.h>
 
+// 焦点所在选项的颜色
 #define kRed 39
 #define kGreen 72
 #define kBlue 249
 #define kLineColor [UIColor colorWithRed:kRed/255.0 green:kGreen/255.0 blue:kBlue/255.0 alpha:1.0]
 
+// 左右遮罩图
 #define kShadeLeft [UIImage imageNamed:@"Shade_Left"]
 #define kShadeRight [UIImage imageNamed:@"Shade_Right"]
-
+// 遮罩图宽
 #define kShadeW 40
 
+// 焦点所在选项字体
 #define kBarFont 16.0
+// 焦点不在时的字体缩小比例，如果为1则不变
 #define kBarFontScale 0.9
 
 // 回调当前选项索引以及是否重复选择
