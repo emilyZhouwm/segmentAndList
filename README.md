@@ -10,11 +10,11 @@
 
     // 1.3 分段改变
     if (isRepeat) {
-    // 1.3.1 重复点击，可以选择回滚到头部
-    [self scrollHead:index];
+        // 1.3.1 重复点击，可以选择回滚到头部
+        [self scrollHead:index];
     } else {
-    // 1.3.2 如果没加载数据则加载数据，懒加载模式
-    [self loadData:index];
+        // 1.3.2 如果没加载数据则加载数据，懒加载模式
+        [self loadData:index];
     }
 
     // 1.1 转屏时设置一下，不支持转屏可以没有这部分
