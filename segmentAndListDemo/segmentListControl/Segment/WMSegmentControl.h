@@ -33,14 +33,14 @@ typedef NS_ENUM (NSInteger, WMSegmentType) {
 #define kSegmentDefultWidth (100) // WMSegmentWidth类型时生效
 #define kSegmentDefultSpace (20)  // WMSegmentSize类型时生效
 
-// 回调当前选项索引
-typedef void (^WMSegmentControlBlock)(NSInteger index);
+// 回调当前选项索引以及是否重复点击了选项
+typedef void (^WMSegmentControlBlock)(NSInteger index, BOOL isRepeat);
 
 @class WMSegmentControl;
 @protocol WMSegmentControlDelegate <NSObject>
 @required
-// 回调当前选项索引
-- (void)segmentControl:(WMSegmentControl *)control selectedIndex:(NSInteger)index;
+// 回调当前选项索引以及是否重复点击了选项
+- (void)segmentControl:(WMSegmentControl *)control selectedIndex:(NSInteger)index isRepeat:(BOOL)isRepeat;
 @end
 
 @interface WMSegmentControl : UIView

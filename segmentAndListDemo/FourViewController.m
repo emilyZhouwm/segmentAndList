@@ -40,6 +40,7 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
+    // 2.转屏时设置一下，不支持转屏可以没有这部分
     _segmentControl.isStop = TRUE;
 }
 
@@ -52,6 +53,8 @@
     }
     _scroll1.contentSize = CGSizeMake(kScreen_Width * _views.count, 0);
     _scroll1.contentOffset = CGPointMake(_scroll1.frame.size.width * _segmentControl.currentIndex, 0);
+    
+    // 3.转屏完设置一下
     _segmentControl.isStop = FALSE;
 }
 
@@ -59,14 +62,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _views = @[].mutableCopy;
 
+    // 1.设置数据
     NSArray *titleAry = @[@"全部", @"区域一", @"薪资二二", @"全部", @"区域一", @"薪资二二"];
     _segmentControl.segmentType = WMMaskSegmentSize;
-    [_segmentControl setItemsWithTitleArray:titleAry andScrollView:_scroll1 selectedBlock:^(NSInteger index) {
-        NSLog(@"_segmentControl : %ld", (long)index);
+    [_segmentControl setItemsWithTitleArray:titleAry andScrollView:_scroll1 selectedBlock:^(NSInteger index, BOOL isRepeat) {
+        NSLog(@"_segmentControl : %ld isRepeat : %d", (long)index, isRepeat);
     }];
 
+    // 关联部分，测试用，不必联动可以没有_scroll1
+    _views = @[].mutableCopy;
     for (int i = 0; i < titleAry.count; i++) {
         CGRect rect = CGRectMake(kScreen_Width * i, 0, kScreen_Width, _scroll1.frame.size.height);
         UIView *v = [[UIView alloc] initWithFrame:rect];
@@ -76,7 +81,7 @@
     }
     _scroll1.contentSize = CGSizeMake(kScreen_Width * titleAry.count, 0);
 
-    ///
+    /// 其他
     _index = -1;
     _jobType = @[[DownMenuTitle title:@"广场" image:@"nav_tweet_all"],
                  [DownMenuTitle title:@"好友圈" image:@"nav_tweet_friend"],

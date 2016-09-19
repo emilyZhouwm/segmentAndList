@@ -33,12 +33,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     {
+        // 1.设置数据
         NSArray *titleAry = @[@"全部", @"区域", @"薪资", @"全部", @"区域", @"薪资"];
         _segmentControl.segmentType = WMSegmentWidth;
-        [_segmentControl setItemsWithTitleArray:titleAry andScrollView:_scroll1 selectedBlock:^(NSInteger index) {
-            NSLog(@"_segmentControl : %ld", (long)index);
+        [_segmentControl setItemsWithTitleArray:titleAry andScrollView:_scroll1 selectedBlock:^(NSInteger index, BOOL isRepeat) {
+            NSLog(@"_segmentControl : %ld isRepeat : %d", (long)index, isRepeat);
         }];
 
+        // 关联部分，测试用，不必联动可以没有_scroll1
         _views1 = @[].mutableCopy;
         for (int i = 0; i < titleAry.count; i++) {
             CGRect rect = CGRectMake(kScreen_Width * i, 0, kScreen_Width, _scroll1.frame.size.height);
@@ -51,11 +53,13 @@
     }
 
     {
+        // 2.设置数据
         NSArray *iconAry = @[@"", @"", @"", @"", @"", @"", @"", @"", @""];// 不填则显示默认图
-        [_iconSegmentControl setItemsWithIconArray:iconAry andScrollView:_scroll2 selectedBlock:^(NSInteger index) {
-            NSLog(@"_iconSegmentControl : %ld", (long)index);
+        [_iconSegmentControl setItemsWithIconArray:iconAry andScrollView:_scroll2 selectedBlock:^(NSInteger index, BOOL isRepeat) {
+            NSLog(@"_iconSegmentControl : %ld isRepeat : %d", (long)index, isRepeat);
         }];
 
+        // 关联部分，测试用，不必联动可以没有_scroll2
         _views2 = @[].mutableCopy;
         for (int i = 0; i < iconAry.count; i++) {
             CGRect rect = CGRectMake(kScreen_Width * i, 0, kScreen_Width, _scroll2.frame.size.height);
@@ -71,20 +75,22 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
+    // 1.1 转屏时设置一下，不支持转屏可以没有这部分
     _segmentControl.isStop = TRUE;
+    // 2.1 转屏时设置一下，不支持转屏可以没有这部分
     _iconSegmentControl.isStop = TRUE;
 }
 
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
+    // 关联部分，测试用
     for (int i = 0; i < _views1.count; i++) {
         UIView *v = _views1[i];
         v.frame = CGRectMake(kScreen_Width * i, 0, kScreen_Width, _scroll1.frame.size.height);
     }
     _scroll1.contentSize = CGSizeMake(kScreen_Width * _views1.count, 0);
     _scroll1.contentOffset = CGPointMake(_scroll1.frame.size.width * _segmentControl.currentIndex, 0);
-    _segmentControl.isStop = FALSE;
 
     for (int i = 0; i < _views2.count; i++) {
         UIView *v = _views2[i];
@@ -92,6 +98,10 @@
     }
     _scroll2.contentSize = CGSizeMake(kScreen_Width * _views2.count, 0);
     _scroll2.contentOffset = CGPointMake(_scroll2.frame.size.width * _iconSegmentControl.currentIndex, 0);
+    
+    // 1.2 转屏完设置一下
+    _segmentControl.isStop = FALSE;
+    // 2.2 转屏完设置一下
     _iconSegmentControl.isStop = FALSE;
 }
 

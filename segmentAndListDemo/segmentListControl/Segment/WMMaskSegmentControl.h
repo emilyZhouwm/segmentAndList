@@ -34,14 +34,14 @@ typedef NS_ENUM (NSInteger, WMMaskSegmentType) {
 #define kMaskDefultWidth (100)    // WMMaskSegmentWidth类型时生效
 #define kMaskDefultSpace (10)     // WMMaskSegmentSize类型时生效，应大于kMaskGroundSpace
 
-// 回调当前选项索引
-typedef void (^WMMaskSegmentControlBlock)(NSInteger index);
+// 回调当前选项索引以及是否重复点击了选项
+typedef void (^WMMaskSegmentControlBlock)(NSInteger index, BOOL isRepeat);
 
 @class WMMaskSegmentControl;
 @protocol WMMaskSegmentControlDelegate <NSObject>
 @required
-// 回调当前选项索引
-- (void)segmentControl:(WMMaskSegmentControl *)control selectedIndex:(NSInteger)index;
+// 回调当前选项索引以及是否重复点击了选项
+- (void)segmentControl:(WMMaskSegmentControl *)control selectedIndex:(NSInteger)index isRepeat:(BOOL)isRepeat;
 @end
 
 @interface WMMaskSegmentControl : UIView

@@ -24,13 +24,13 @@
 // 焦点不在时的字体缩小比例，如果为1则不变
 #define kBarFontScale 0.9
 
-// 回调当前选项索引以及是否重复选择
+// 回调当前选项索引以及是否重复点击了选项
 typedef void (^WMNavTabBarBlock)(NSInteger index, NSInteger isRepeat);
 
 @class WMNavTabBar;
 @protocol WMNavTabBarDelegate <NSObject>
 @required
-// 回调当前选项索引以及是否重复选择
+// 回调当前选项索引以及是否重复点击了选项
 - (void)itemDidSelected:(WMNavTabBar *)tabBar withIndex:(NSInteger)index isRepeat:(BOOL)isRepeat;
 @end
 

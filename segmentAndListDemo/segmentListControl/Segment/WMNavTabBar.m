@@ -143,12 +143,20 @@
     [_tabBarScrollView setContentOffset:CGPointMake(0.0f, 0.0f) animated:NO];
 
     _shadeLeft.hidden = TRUE;
+    _currentItemIndex = -1;
     self.currentItemIndex = 0;
 }
 
 - (void)setCurrentItemIndex:(NSInteger)currentItemIndex
 {
     if (currentItemIndex > _itemsBtn.count - 1 || currentItemIndex < 0) return;
+    if (currentItemIndex != _currentItemIndex) {
+        if (_delegate) {
+            [_delegate itemDidSelected:self withIndex:currentItemIndex isRepeat:FALSE];
+        } else if (_block) {
+            _block(currentItemIndex, FALSE);
+        }
+    }
     _currentItemIndex = currentItemIndex;
 
     NSInteger i = 0;
@@ -179,6 +187,7 @@
     }
     CGFloat width = [_itemsWidth[_currentItemIndex] floatValue] - _barSpeace * 2;
     _line.frame = CGRectMake(button.center.x - width * 0.5, _tabBarScrollView.frame.size.height - kBarLine, width, kBarLine);
+
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -299,20 +308,24 @@
 
 - (void)itemPressed:(UIButton *)button
 {
-    BOOL isRepeat = FALSE;
     NSInteger index = [_itemsBtn indexOfObject:button];
-    if (_scrollView) {
-        CGFloat offset = index * _scrollView.frame.size.width;
-        if (_scrollView.contentOffset.x == offset) {
-            isRepeat = TRUE;
-        } else {
-            [_scrollView setContentOffset:CGPointMake(offset, 0.0f) animated:YES];
+    if (index == _currentItemIndex) {
+        if (_delegate) {
+            [_delegate itemDidSelected:self withIndex:index isRepeat:TRUE];
+        } else if (_block) {
+            _block(index, TRUE);
         }
-    }
-    if (_delegate) {
-        [_delegate itemDidSelected:self withIndex:index isRepeat:isRepeat];
-    } else if (_block) {
-        _block(index, isRepeat);
+    } else {
+        if (_scrollView) {
+            CGFloat offset = index * _scrollView.frame.size.width;
+            [_scrollView setContentOffset:CGPointMake(offset, 0.0f) animated:YES];
+        } else {
+            if (_delegate) {
+                [_delegate itemDidSelected:self withIndex:index isRepeat:FALSE];
+            } else if (_block) {
+                _block(index, FALSE);
+            }
+        }
     }
 }
 

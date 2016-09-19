@@ -223,7 +223,7 @@
     [_contentView bringSubviewToFront:_groundView];
 
     _currentIndex = -1;
-    [self selectIndex:0];
+    [self selectIndex:0 check:YES];
 }
 
 - (void)setTitle:(NSString *)title withIndex:(NSInteger)index
@@ -234,9 +234,14 @@
     }
 }
 
-- (void)selectIndex:(NSInteger)index
+- (void)selectIndex:(NSInteger)index check:(BOOL)isCheck
 {
     if (index != _currentIndex) {
+        if (_delegate) {
+            [_delegate segmentControl:self selectedIndex:index isRepeat:FALSE];
+        } else if (_block) {
+            _block(index, FALSE);
+        }
         CGRect rect = [_itemFrames[index] CGRectValue];
         CGRect tempRect = CGRectMake(CGRectGetMinX(rect) + kMaskGroundSpace, kMaskGroundSpaceH, CGRectGetWidth(rect) - 2 * kMaskGroundSpace, CGRectGetHeight(rect)- 2 * kMaskGroundSpaceH);
 
@@ -244,6 +249,12 @@
             _groundView.layer.mask.frame = tempRect;
         }
         _currentIndex = index;
+    } else if (isCheck) {
+        if (_delegate) {
+            [_delegate segmentControl:self selectedIndex:index isRepeat:TRUE];
+        } else if (_block) {
+            _block(index, TRUE);
+        }
     }
     [self setScrollOffset:index];
 }
@@ -320,7 +331,7 @@
 {
     if (scrollView == _scrollView) {
         NSInteger index = scrollView.contentOffset.x / scrollView.frame.size.width;
-        [self selectIndex:index];
+        [self selectIndex:index check:NO];
     }
 }
 
@@ -342,7 +353,7 @@
         CGRect rect = [obj CGRectValue];
 
         if (CGRectContainsPoint(rect, point)) {
-            [weakSelf selectIndex:idx];
+            [weakSelf selectIndex:idx check:YES];
 
             [weakSelf transformAction:idx];
 
@@ -355,12 +366,6 @@
 {
     _isNot = TRUE;
     [_scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width * index, 0) animated:YES];
-
-    if (_delegate) {
-        [_delegate segmentControl:self selectedIndex:index];
-    } else if (_block) {
-        _block(index);
-    }
 }
 
 - (void)setScrollOffset:(NSInteger)index

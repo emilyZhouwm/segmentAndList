@@ -14,14 +14,14 @@
 #define kIconHeight (40)
 #define kItemWidth (60)
 
-// 回调当前选项索引
-typedef void (^WMIconSegmentControlBlock)(NSInteger index);
+// 回调当前选项索引以及是否重复点击了选项
+typedef void (^WMIconSegmentControlBlock)(NSInteger index, BOOL isRepeat);
 
 @class WMIconSegmentControl;
 @protocol WMIconSegmentControlDelegate <NSObject>
 @required
-// 回调当前选项索引
-- (void)segmentControl:(WMIconSegmentControl *)control selectedIndex:(NSInteger)index;
+// 回调当前选项索引以及是否重复点击了选项
+- (void)segmentControl:(WMIconSegmentControl *)control selectedIndex:(NSInteger)index isRepeat:(BOOL)isRepeat;
 @end
 
 @protocol WMWebImageDelegate <NSObject>
