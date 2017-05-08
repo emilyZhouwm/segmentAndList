@@ -80,7 +80,7 @@
 @property (nonatomic, copy) WMSegmentControlBlock block;
 
 @property (nonatomic, assign) BOOL isNot;
-
+@property (nonatomic, assign) NSInteger currentIndex;
 @end
 
 @implementation WMSegmentControl
@@ -256,13 +256,13 @@
             _currentIndex = index;
         } else {
             [UIView animateWithDuration:kAnimationTime animations:^{
-                _groundView.frame = tempRect;
+                self.groundView.frame = tempRect;
             } completion:^(BOOL finished) {
-                [_itemViews enumerateObjectsUsingBlock:^(WMSegmentControlItem *item, NSUInteger idx, BOOL *stop) {
+                [self.itemViews enumerateObjectsUsingBlock:^(WMSegmentControlItem *item, NSUInteger idx, BOOL *stop) {
                     [item setSelected:NO];
                 }];
                 [curItem setSelected:YES];
-                _currentIndex = index;
+                self.currentIndex = index;
             }];
         }
     } else if (isCheck) {
@@ -408,7 +408,7 @@
     }
 
     [UIView animateWithDuration:kAnimationTime animations:^{
-        [_contentView setContentOffset:CGPointMake(offset, 0) animated:NO];
+        [self.contentView setContentOffset:CGPointMake(offset, 0) animated:NO];
     }];
 }
 

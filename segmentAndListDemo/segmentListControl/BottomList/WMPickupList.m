@@ -136,7 +136,7 @@ static Class _headClass = nil;
     CGRect frame = _baseView.frame;
     frame.origin.y -= frame.size.height;
     [UIView animateWithDuration:0.25 animations:^{
-        _baseView.frame = frame;
+        self.baseView.frame = frame;
     } completion:^(BOOL finished) {}];
 }
 
@@ -145,7 +145,7 @@ static Class _headClass = nil;
     CGRect frame = _baseView.frame;
     frame.origin.y += frame.size.height;
     [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        _baseView.frame = frame;
+        self.baseView.frame = frame;
     } completion:^(BOOL finished) {
         if (self.block) {
             self.block(nil, -1);

@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--First-->
@@ -14,18 +18,18 @@
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8t-95-9eN" customClass="WMTabControl">
-                                <rect key="frame" x="0.0" y="20" width="320" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="F1Y-XM-F4N"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="D8t-95-9eN" secondAttribute="trailing" id="10i-Zr-d8h"/>
                             <constraint firstItem="D8t-95-9eN" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="FJ6-VW-5MS"/>
@@ -45,7 +49,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-377" y="583"/>
+            <point key="canvasLocation" x="-994" y="582"/>
         </scene>
         <!--Three-->
         <scene sceneID="CHj-A8-gPI">
@@ -56,18 +60,18 @@
                         <viewControllerLayoutGuide type="bottom" id="gZz-ye-9rI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="L2z-uu-kK7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AVN-JH-6ut" customClass="WMNavTabBar">
-                                <rect key="frame" x="0.0" y="20" width="320" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="eBq-ec-SpN"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cR2-5R-Lh3">
-                                <rect key="frame" x="0.0" y="60" width="320" height="200"/>
+                                <rect key="frame" x="0.0" y="60" width="375" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="PNt-JD-dX1"/>
                                     <constraint firstAttribute="height" constant="200" id="mJd-5K-AqK"/>
@@ -79,7 +83,7 @@
                                 </variation>
                             </scrollView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nkf-cv-h0y">
-                                <rect key="frame" x="0.0" y="300" width="320" height="200"/>
+                                <rect key="frame" x="0.0" y="300" width="375" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="4UL-qT-uWK"/>
                                     <constraint firstAttribute="height" constant="40" id="BrG-8r-wY4"/>
@@ -91,14 +95,14 @@
                                 </variation>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="242-Zg-m5Z" customClass="WMNavTabBar">
-                                <rect key="frame" x="0.0" y="260" width="320" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="260" width="375" height="40"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="hqD-EI-iJE"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nkf-cv-h0y" secondAttribute="trailing" id="3Yp-y5-xgp"/>
                             <constraint firstItem="242-Zg-m5Z" firstAttribute="leading" secondItem="L2z-uu-kK7" secondAttribute="leading" id="4Hw-3h-rv5"/>
@@ -135,37 +139,37 @@
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBY-AH-kgj" customClass="WMSegmentControl">
-                                <rect key="frame" x="0.0" y="20" width="320" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="R3c-a9-nYH"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0og-bv-hU5">
-                                <rect key="frame" x="0.0" y="60" width="320" height="200"/>
+                                <rect key="frame" x="0.0" y="60" width="375" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="6yg-sw-hPo"/>
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ChB-jj-zju" customClass="WMIconSegmentControl">
-                                <rect key="frame" x="0.0" y="260" width="320" height="60"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="260" width="375" height="60"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="4nn-43-o1D"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HGT-oW-5Fn">
-                                <rect key="frame" x="0.0" y="320" width="320" height="200"/>
+                                <rect key="frame" x="0.0" y="320" width="375" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="El8-Qj-XiR"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="TBY-AH-kgj" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="Deq-3m-d8s"/>
                             <constraint firstItem="HGT-oW-5Fn" firstAttribute="top" secondItem="ChB-jj-zju" secondAttribute="bottom" id="GaK-hs-bIA"/>
@@ -197,18 +201,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6" y="583"/>
+            <point key="canvasLocation" x="-338" y="582"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
@@ -231,18 +234,18 @@
                         <viewControllerLayoutGuide type="bottom" id="X1J-14-z6C"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Rz0-Vk-w1h">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UvD-IP-RxV" customClass="WMTabControl">
-                                <rect key="frame" x="0.0" y="20" width="320" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="DRN-Bz-AKn"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UvD-IP-RxV" firstAttribute="leading" secondItem="Rz0-Vk-w1h" secondAttribute="leading" id="67U-5N-FFZ"/>
                             <constraint firstAttribute="trailing" secondItem="UvD-IP-RxV" secondAttribute="trailing" id="NHK-E0-nFi"/>
@@ -262,7 +265,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QzW-N8-Occ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1064" y="583"/>
+            <point key="canvasLocation" x="1780" y="582"/>
         </scene>
         <!--Four-->
         <scene sceneID="yS3-vh-o2S">
@@ -273,24 +276,24 @@
                         <viewControllerLayoutGuide type="bottom" id="5id-lo-qna"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="F66-mF-Rwf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avn-D9-rY5" customClass="WMMaskSegmentControl">
-                                <rect key="frame" x="0.0" y="20" width="320" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="wPs-nP-FZB"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ijq-RO-ZsN">
-                                <rect key="frame" x="0.0" y="60" width="320" height="200"/>
+                                <rect key="frame" x="0.0" y="60" width="375" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="kPL-GO-jMX"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="avn-D9-rY5" secondAttribute="trailing" id="4T6-px-syE"/>
                             <constraint firstItem="avn-D9-rY5" firstAttribute="top" secondItem="dqH-9E-Q4f" secondAttribute="bottom" id="4rj-fN-K4k"/>
@@ -308,7 +311,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHH-R0-L8x" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="728" y="583"/>
+            <point key="canvasLocation" x="1111" y="582"/>
         </scene>
     </scenes>
     <resources>

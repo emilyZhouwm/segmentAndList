@@ -8,13 +8,15 @@
 #import "WMNavTabBar.h"
 
 #define kBarSpeace 10
-#define kBarLine 2
+#define kBarLine 3
+#define kBarSampSpeace 5
 
 // 焦点不在时的颜色
-#define kGreyColor [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1.0]
+#define kGreyColor [UIColor colorWithRed:165/255.0 green:165/255.0 blue:165/255.0 alpha:1.0]
 
+#ifndef kColor
 #define kColor(r, g, b) [UIColor colorWithRed: (r)/255.0 green: (g)/255.0 blue: (b)/255.0 alpha: 1.0]
-#define kScreen_Width [UIScreen mainScreen].bounds.size.width
+#endif
 
 @interface WMNavTabBar () <UIScrollViewDelegate>
 {
@@ -32,9 +34,39 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (nonatomic, copy) WMNavTabBarBlock block;
 
+@property (nonatomic, assign) CGFloat barFont;
+@property (nonatomic, assign) CGFloat barFontScale;
+@property (nonatomic, assign) CGFloat BarLineH;
+@property (nonatomic, strong) UIColor *LineColor;
+
 @end
 
 @implementation WMNavTabBar
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit
+{
+    _barFont = kBarFont;
+    _barFontScale = kBarFontScale;
+    _BarLineH = kBarLine;
+    _LineColor = kLineColor;
+}
 
 - (void)layoutSubviews
 {
@@ -48,14 +80,14 @@
 
         if (_isSamp) {
             CGFloat buttonX = 0.0f;
-            CGFloat buttonW = kScreen_Width / _itemsBtn.count;
+            CGFloat buttonW = self.frame.size.width / _itemsBtn.count;
             for (UIButton *btn in _itemsBtn) {
                 btn.frame = CGRectMake(buttonX, 0, buttonW, self.frame.size.height);
                 buttonX += buttonW;
             }
             UIButton *button = _itemsBtn[_currentItemIndex];
             CGFloat width = [_itemsWidth[_currentItemIndex] floatValue] - _barSpeace * 2;
-            _line.frame = CGRectMake(button.center.x - width * 0.5, _tabBarScrollView.frame.size.height - kBarLine, width, kBarLine);
+            _line.frame = CGRectMake(button.center.x - width * 0.5, _tabBarScrollView.frame.size.height - _BarLineH, width, _BarLineH);
         } else {
             UIButton *button = _itemsBtn[_currentItemIndex];
             CGFloat offsetX = button.center.x - self.frame.size.width * 0.5f;
@@ -82,7 +114,7 @@
         [self addSubview:_tabBarScrollView];
 
         _line = [[UIView alloc] initWithFrame:CGRectZero];
-        _line.backgroundColor = kLineColor;
+        _line.backgroundColor = _LineColor;
         [_tabBarScrollView addSubview:_line];
 
         _shadeLeft = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kShadeW, self.frame.size.height)];
@@ -115,17 +147,18 @@
     _itemsWidth = [@[] mutableCopy];
 
     CGFloat buttonX = 0.0f;
-    CGFloat buttonW = kScreen_Width / _itemsBtn.count;
+    CGFloat buttonW = self.frame.size.width / _itemsBtn.count;
     _barSpeace = _isSamp ? 0 : kBarSpeace;
+    CGFloat barSampSpeace = _isSamp ? kBarSampSpeace * 2 : 0;
     for (NSString *title in itemTitles) {
-        CGSize size = [title sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kBarFont]}];
-        NSNumber *width = [NSNumber numberWithFloat:size.width + _barSpeace * 2];
+        CGSize size = [title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:_barFont]}];
+        NSNumber *width = [NSNumber numberWithFloat:size.width + _barSpeace * 2 + barSampSpeace];
         [_itemsWidth addObject:width];
 
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         button.frame = CGRectMake(buttonX, 0, _isSamp ? buttonW : [width floatValue], self.frame.size.height);
         [button setTitle:title forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:kBarFont]];
+        [button.titleLabel setFont:[UIFont boldSystemFontOfSize:_barFont]];
         [button setTitleColor:kGreyColor forState:UIControlStateNormal];
 
         [button addTarget:self action:@selector(itemPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -163,12 +196,12 @@
     for (UIButton *btn in _itemsBtn) {
         [btn setTitleColor:kGreyColor forState:UIControlStateNormal];
         if (_isFont && i != _currentItemIndex) {
-            btn.transform = CGAffineTransformMakeScale(kBarFontScale, kBarFontScale);
+            btn.transform = CGAffineTransformMakeScale(_barFontScale, _barFontScale);
         }
         i++;
     }
     UIButton *button = _itemsBtn[_currentItemIndex];
-    [button setTitleColor:kLineColor forState:UIControlStateNormal];
+    [button setTitleColor:kCurrentColor forState:UIControlStateNormal];
     if (_isFont) {
         button.transform = CGAffineTransformIdentity;
     }
@@ -186,8 +219,7 @@
         [_tabBarScrollView setContentOffset:CGPointMake(offsetX, 0.0f) animated:YES];
     }
     CGFloat width = [_itemsWidth[_currentItemIndex] floatValue] - _barSpeace * 2;
-    _line.frame = CGRectMake(button.center.x - width * 0.5, _tabBarScrollView.frame.size.height - kBarLine, width, kBarLine);
-
+    _line.frame = CGRectMake(button.center.x - width * 0.5, _tabBarScrollView.frame.size.height - _BarLineH, width, _BarLineH);
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -200,7 +232,7 @@
         }
     } else if (scrollView == _scrollView) {
         if (!_isStop) {
-            [self setLinePosition:scrollView.contentOffset.x];
+            [self setLinePosition:_tabBarScrollView.frame.size.width * scrollView.contentOffset.x / _scrollView.frame.size.width];
         }
     }
 }
@@ -249,9 +281,9 @@
         [button1 setTitleColor:color1 forState:UIControlStateNormal];
 
         if (_isFont) {
-            CGFloat scale = kBarFontScale + (1-kBarFontScale) * tt;
+            CGFloat scale = _barFontScale + (1-_barFontScale) * tt;
             button.transform = CGAffineTransformMakeScale(scale, scale);
-            CGFloat scale1 = kBarFontScale + (1-kBarFontScale) * (1-tt);
+            CGFloat scale1 = _barFontScale + (1-_barFontScale) * (1-tt);
             button1.transform = CGAffineTransformMakeScale(scale1, scale1);
         }
 
@@ -268,7 +300,7 @@
             x = button.center.x - w * 0.5;
         }
 
-        _line.frame = CGRectMake(x, _tabBarScrollView.frame.size.height - kBarLine, width, kBarLine);
+        _line.frame = CGRectMake(x, _tabBarScrollView.frame.size.height - _BarLineH, width, _BarLineH);
     } else {
         index = (position + self.frame.size.width - 1) / self.frame.size.width;
         if (index > _currentItemIndex && index < _itemsBtn.count) {
@@ -283,9 +315,9 @@
             [button1 setTitleColor:color1 forState:UIControlStateNormal];
 
             if (_isFont) {
-                CGFloat scale = kBarFontScale + (1-kBarFontScale) * tt;
+                CGFloat scale = _barFontScale + (1-_barFontScale) * tt;
                 button.transform = CGAffineTransformMakeScale(scale, scale);
-                CGFloat scale1 = kBarFontScale + (1-kBarFontScale) * (1-tt);
+                CGFloat scale1 = _barFontScale + (1-_barFontScale) * (1-tt);
                 button1.transform = CGAffineTransformMakeScale(scale1, scale1);
             }
 
@@ -301,7 +333,7 @@
                 x = button.center.x - w * 0.5;
             }
 
-            _line.frame = CGRectMake(x, _tabBarScrollView.frame.size.height - kBarLine, width, kBarLine);
+            _line.frame = CGRectMake(x, _tabBarScrollView.frame.size.height - _BarLineH, width, _BarLineH);
         }
     }
 }

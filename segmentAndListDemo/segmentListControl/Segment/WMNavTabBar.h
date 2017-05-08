@@ -8,9 +8,10 @@
 #import <UIKit/UIKit.h>
 
 // 焦点所在选项的颜色
-#define kRed 39
-#define kGreen 72
-#define kBlue 249
+#define kRed 51
+#define kGreen 51
+#define kBlue 51
+#define kCurrentColor [UIColor colorWithRed:kRed/255.0 green:kGreen/255.0 blue:kBlue/255.0 alpha:1.0]
 #define kLineColor [UIColor colorWithRed:kRed/255.0 green:kGreen/255.0 blue:kBlue/255.0 alpha:1.0]
 
 // 左右遮罩图
@@ -20,9 +21,9 @@
 #define kShadeW 40
 
 // 焦点所在选项字体
-#define kBarFont 16.0
+#define kBarFont 17.0
 // 焦点不在时的字体缩小比例，如果为1则不变
-#define kBarFontScale 0.9
+#define kBarFontScale 0.94
 
 // 回调当前选项索引以及是否重复点击了选项
 typedef void (^WMNavTabBarBlock)(NSInteger index, NSInteger isRepeat);
@@ -34,6 +35,11 @@ typedef void (^WMNavTabBarBlock)(NSInteger index, NSInteger isRepeat);
 - (void)itemDidSelected:(WMNavTabBar *)tabBar withIndex:(NSInteger)index isRepeat:(BOOL)isRepeat;
 @end
 
+@protocol WMVCDelegate <NSObject>
+@required
+- (void)showNavView:(BOOL)isShow;
+@end
+
 @interface WMNavTabBar : UIView
 
 @property (nonatomic, weak) id <WMNavTabBarDelegate>delegate;   /**< 回调 */
@@ -41,6 +47,12 @@ typedef void (^WMNavTabBarBlock)(NSInteger index, NSInteger isRepeat);
 @property (nonatomic, assign) BOOL isSamp;                      /**< 是否平摊，配置选项之前设置 */
 @property (nonatomic, assign) BOOL isFont;                      /**< 是否改变字体大小，配置选项之前设置 */
 @property (nonatomic, assign) BOOL isStop;                      /**< 转屏时控制一下 */
+
+/// 0、配置ui数值，需要先执行
+- (void)setBarFont:(CGFloat)font;
+- (void)setBarFontScale:(CGFloat)font;
+- (void)setBarLineH:(CGFloat)height;
+- (void)setLineColor:(UIColor *)color;
 
 ///  1、配置选项
 ///  @param itemTitles  选项数组

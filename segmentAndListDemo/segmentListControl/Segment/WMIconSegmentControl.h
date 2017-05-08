@@ -31,7 +31,7 @@ typedef void (^WMIconSegmentControlBlock)(NSInteger index, BOOL isRepeat);
 
 @interface WMIconSegmentControl : UIView
 
-@property (nonatomic, readonly) NSInteger currentIndex;                 /**< 当前选项索引 */
+@property (nonatomic, assign, readonly) NSInteger currentIndex;         /**< 当前选项索引 */
 @property (nonatomic, weak) id <WMIconSegmentControlDelegate> delegate; /**< 回调 */
 @property (nonatomic, weak) id <WMWebImageDelegate> imgDelegate;        /**< 交给外部取网络图片 */
 @property (nonatomic, assign) BOOL isStop;                              /**< 转屏时控制一下 */

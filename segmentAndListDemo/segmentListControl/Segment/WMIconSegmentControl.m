@@ -65,7 +65,7 @@
 @property (nonatomic, copy) WMIconSegmentControlBlock block;
 
 @property (nonatomic, assign) BOOL isNot;
-
+@property (nonatomic, assign) NSInteger currentIndex;
 @end
 
 @implementation WMIconSegmentControl
@@ -195,16 +195,16 @@
                 [item setSelected:NO];
             }];
             [curItem setSelected:YES];
-            _currentIndex = index;
+            self.currentIndex = index;
         } else {
             [UIView animateWithDuration:kAnimationTime animations:^{
-                _lineView.frame = lineRect;
+                self.lineView.frame = lineRect;
             } completion:^(BOOL finished) {
-                [_itemViews enumerateObjectsUsingBlock:^(WMIconSegControlItem *item, NSUInteger idx, BOOL *stop) {
+                [self.itemViews enumerateObjectsUsingBlock:^(WMIconSegControlItem *item, NSUInteger idx, BOOL *stop) {
                     [item setSelected:NO];
                 }];
                 [curItem setSelected:YES];
-                _currentIndex = index;
+                self.currentIndex = index;
             }];
         }
     } else if (isCheck) {
@@ -344,7 +344,7 @@
     }
 
     [UIView animateWithDuration:kAnimationTime animations:^{
-        [_contentView setContentOffset:CGPointMake(offset, 0) animated:NO];
+        [self.contentView setContentOffset:CGPointMake(offset, 0) animated:NO];
     }];
 }
 

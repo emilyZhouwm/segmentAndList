@@ -141,19 +141,19 @@
 @end
 
 @interface WMDropDown2View () <UITableViewDataSource, UITableViewDelegate>
-{
-    UIButton *_baseBtn;
-    UIView *_baseView;
-    UITableView *_tableView;
-    UITableView *_rightTableView;
-    UITableView *_leftTableView;
-    UIView *_lineView;
-    NSInteger _index;
-    NSInteger _secondIndex;
-}
 
 @property (nonatomic, copy) WMDropDown2ViewBlock block;
 @property (nonatomic, copy) NSArray *titles;
+
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) NSInteger secondIndex;
+
+@property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) UIView *baseView;
+@property (nonatomic, strong) UIButton *baseBtn;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UITableView *rightTableView;
+@property (nonatomic, strong) UITableView *leftTableView;
 
 @end
 
@@ -271,41 +271,41 @@
         CGRect frame = _baseView.frame;
         frame.origin.y = -frame.size.height;
         [UIView animateWithDuration:0.2 animations:^{
-            _baseView.frame = frame;
+            self.baseView.frame = frame;
         } completion:^(BOOL finished) {
             self.block = block;
             self.titles = titles;
 
-            _index = index;
-            if (_index < 0 || _index >= _titles.count) {
-                _index = 0;
+            self.index = index;
+            if (self.index < 0 || self.index >= self.titles.count) {
+                self.index = 0;
             }
-            _secondIndex = secondIndex;
+            self.secondIndex = secondIndex;
             if (![titles[0] isKindOfClass:[NSString class]]) {
-                NSArray *ary = [_titles[_index] objectForKey:@"right"];
-                if (_secondIndex < 0 || _secondIndex >= ary.count) {
-                    _secondIndex = 0;
+                NSArray *ary = [self.titles[self.index] objectForKey:@"right"];
+                if (self.secondIndex < 0 || self.secondIndex >= ary.count) {
+                    self.secondIndex = 0;
                 }
             }
 
-            NSInteger count = _titles.count;
+            NSInteger count = self.titles.count;
             while (count * kCellH > self.frame.size.height) {
                 count--;
             }
             CGFloat sH = count * kCellH;
-            _baseView.frame = CGRectMake(0, -sH, self.frame.size.width, sH);
-            _tableView.frame = CGRectMake(0, 0, self.frame.size.width, sH);
-            [_tableView reloadData];
-            _leftTableView.frame = CGRectMake(0, 0, self.frame.size.width / 3, sH);
-            [_leftTableView reloadData];
-            _rightTableView.frame = CGRectMake(self.frame.size.width / 3, 0, self.frame.size.width / 3 * 2, sH);
-            [_rightTableView reloadData];
-            _lineView.frame = CGRectMake(self.frame.size.width / 3, 0, 0.5f, sH);
+            self.baseView.frame = CGRectMake(0, -sH, self.frame.size.width, sH);
+            self.tableView.frame = CGRectMake(0, 0, self.frame.size.width, sH);
+            [self.tableView reloadData];
+            self.leftTableView.frame = CGRectMake(0, 0, self.frame.size.width / 3, sH);
+            [self.leftTableView reloadData];
+            self.rightTableView.frame = CGRectMake(self.frame.size.width / 3, 0, self.frame.size.width / 3 * 2, sH);
+            [self.rightTableView reloadData];
+            self.lineView.frame = CGRectMake(self.frame.size.width / 3, 0, 0.5f, sH);
 
-            _lineView.hidden = [titles[0] isKindOfClass:[NSString class]] ? YES : NO;
-            _leftTableView.hidden = _lineView.hidden;
-            _rightTableView.hidden = _lineView.hidden;
-            _tableView.hidden = !_lineView.hidden;
+            self.lineView.hidden = [titles[0] isKindOfClass:[NSString class]] ? YES : NO;
+            self.leftTableView.hidden = self.lineView.hidden;
+            self.rightTableView.hidden = self.lineView.hidden;
+            self.tableView.hidden = !self.lineView.hidden;
             [self showView];
         }];
     }
@@ -424,7 +424,7 @@
     CGRect frame = _baseView.frame;
     frame.origin.y = 0;
     [UIView animateWithDuration:0.3 animations:^{
-        _baseView.frame = frame;
+        self.baseView.frame = frame;
     } completion:^(BOOL finished) {}];
 }
 
@@ -433,7 +433,7 @@
     CGRect frame = _baseView.frame;
     frame.origin.y = -frame.size.height;
     [UIView animateWithDuration:0.3 animations:^{
-        _baseView.frame = frame;
+        self.baseView.frame = frame;
     } completion:^(BOOL finished) {
         if (self.block) {
             self.block(-1, -1, nil);

@@ -45,7 +45,7 @@ typedef void (^WMSegmentControlBlock)(NSInteger index, BOOL isRepeat);
 
 @interface WMSegmentControl : UIView
 
-@property (nonatomic, readonly) NSInteger currentIndex;             /**< 当前选项索引 */
+@property (nonatomic, assign, readonly) NSInteger currentIndex;     /**< 当前选项索引 */
 @property (nonatomic, weak) id <WMSegmentControlDelegate> delegate; /**< 回调 */
 @property (nonatomic, assign) WMSegmentType segmentType;            /**< 类型，在配置选项之前指定 */
 @property (nonatomic, assign) BOOL isStop;                          /**< 转屏时控制一下 */

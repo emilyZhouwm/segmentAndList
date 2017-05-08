@@ -239,13 +239,13 @@
                 _currentIndex = index;
             } else {
                 [UIView animateWithDuration:kAnimationTime animations:^{
-                    _lineView.frame = lineRect;
+                    self.lineView.frame = lineRect;
                 } completion:^(BOOL finished) {
-                    [_itemViews enumerateObjectsUsingBlock:^(WMTabControlItem *item, NSUInteger idx, BOOL *stop) {
+                    [self.itemViews enumerateObjectsUsingBlock:^(WMTabControlItem *item, NSUInteger idx, BOOL *stop) {
                         [item setSelected:NO];
                     }];
                     [curItem setSelected:YES];
-                    _currentIndex = index;
+                    self.currentIndex = index;
                 }];
             }
         }

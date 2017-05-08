@@ -96,19 +96,19 @@ static Class _cellClass = nil;
     CGRect frame = _tableView.frame;
     frame.origin.y = -frame.size.height;
     [UIView animateWithDuration:0.2 animations:^{
-        _tableView.frame = frame;
+        self.tableView.frame = frame;
     } completion:^(BOOL finished) {
         self.block = selectedHandle;
         self.titles = titles;
 
-        _index = index;
-        NSInteger count = _titles.count;
+        self.index = index;
+        NSInteger count = self.titles.count;
         while (count * kCellH > self.frame.size.height) {
             count--;
         }
         CGFloat sH = count * kCellH;
-        _tableView.frame = CGRectMake(0, -sH, self.frame.size.width, sH);
-        [_tableView reloadData];
+        self.tableView.frame = CGRectMake(0, -sH, self.frame.size.width, sH);
+        [self.tableView reloadData];
 
         [self showView];
     }];
@@ -161,7 +161,7 @@ static Class _cellClass = nil;
     CGRect frame = _tableView.frame;
     frame.origin.y = 0;
     [UIView animateWithDuration:0.3 animations:^{
-        _tableView.frame = frame;
+        self.tableView.frame = frame;
     } completion:^(BOOL finished) {}];
 }
 
@@ -170,7 +170,7 @@ static Class _cellClass = nil;
     CGRect frame = _tableView.frame;
     frame.origin.y = -frame.size.height;
     [UIView animateWithDuration:0.3 animations:^{
-        _tableView.frame = frame;
+        self.tableView.frame = frame;
     } completion:^(BOOL finished) {
         if (self.block) {
             self.block(nil, -1);

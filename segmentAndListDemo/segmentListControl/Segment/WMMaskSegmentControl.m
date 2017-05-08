@@ -294,7 +294,7 @@
         moveRect.origin = CGPointMake(CGRectGetMidX(origionLineRect) + delta * (CGRectGetMidX(lineRect) - CGRectGetMidX(origionLineRect)) - CGRectGetMidX(moveRect), CGRectGetMidY(origionLineRect) - CGRectGetMidY(moveRect));
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            _groundView.layer.mask.frame = moveRect;
+            self.groundView.layer.mask.frame = moveRect;
         });
     } else if (delta < 0) {
         if (_currentIndex == 0) {
@@ -307,7 +307,7 @@
         moveRect.origin = CGPointMake(CGRectGetMidX(origionLineRect) - delta * (CGRectGetMidX(tempRect) - CGRectGetMidX(origionLineRect)) - CGRectGetMidX(moveRect), CGRectGetMidY(origionLineRect) - CGRectGetMidY(moveRect));
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            _groundView.layer.mask.frame = moveRect;
+            self.groundView.layer.mask.frame = moveRect;
         });
 
         if (delta < -1) {
@@ -393,7 +393,7 @@
     }
 
     [UIView animateWithDuration:kMaskAnimationTime animations:^{
-        [_contentView setContentOffset:CGPointMake(offset, 0) animated:NO];
+        [self.contentView setContentOffset:CGPointMake(offset, 0) animated:NO];
     }];
 }
 
