@@ -1,4 +1,4 @@
-#各种效果的分段选择和下拉列表，二级下拉列表，可自定义列表样式。
+# 各种效果的分段选择和下拉列表，二级下拉列表，可自定义列表样式。
 
 ![](./segmentAndList.gif)
 
@@ -22,3 +22,6 @@
 
     // 1.2 转屏完设置一下
     _navTabBar.isStop = FALSE;
+
+ps:
+如果手写代码不要忘了    _scrollView.pagingEnabled = TRUE;
